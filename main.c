@@ -1,6 +1,9 @@
 #include <stdio.h>
+#include "grid.h"
 
 int main() {
-    printf("Hello, World!\n");
+    grid *g = createGrid();
+    g->placeToken(g,2,1);
+    destroyGrid(g);
     return 0;
 }
