@@ -10,10 +10,10 @@
 
 typedef struct grid_{
     unsigned char tab[GRID_HEIGHT][GRID_WIDTH];
-    bool (*placeToken)(struct grid_ *g, unsigned char column, unsigned char val);
-} grid;
+    bool (*placeToken)(struct grid_ *grid, unsigned char column, unsigned char val);
+} Grid;
 
-grid* createGrid();
-void destroyGrid(grid* g);
+Grid* createGrid();
+void destroyGrid(Grid* grid);
 
 #endif //PUISSANCE4_GRID_H
