@@ -8,5 +8,7 @@
 #include "view.h"
 
 View* ViewTerminal_create(Grid *grid);
+unsigned ViewTerminal_getErrorCode();
+char* ViewTerminal_getErrorMsg();
 
 #endif //PUISSANCE4_VIEWTERMINAL_H
