@@ -16,5 +16,7 @@ typedef struct grid_{
 } Grid;
 
 Grid* Grid_create();
+unsigned Grid_getErrorCode();
+char* Grid_getErrorMsg();
 
 #endif //PUISSANCE4_GRID_H
