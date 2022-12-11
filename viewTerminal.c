@@ -24,16 +24,19 @@ static void render(View *view) {
         errorCode=NO_GRID_ERROR;
         return;
     }
+    printf("--PUISSANCE 4--\n");
     for (unsigned i=0; i<GRID_HEIGHT; i++) {
+        bool is_floor = i==GRID_HEIGHT-1;
+        printf("|");
         for (unsigned j=0; j<GRID_WIDTH; j++) {
             switch (view->grid->tab[i][j]) {
                 case 1:
-                    printf("X ");
+                    printf("X|");
                     break;
                 case 2:
-                    printf("O ");
+                    printf("O|");
                     break;
-                default: printf("_ ");
+                default: printf("%c|",is_floor ? '_' : ' ');
             }
         }
         printf("\n");
