@@ -41,10 +41,7 @@ static bool placeToken(Grid *grid, unsigned char column, unsigned char val) {
 }
 
 static void destroy(Grid* grid) {
-    if (!grid) {
-        errorCode=NO_SELF_ERROR;
-        return;
-    }
+    if (!grid) return;
     free(grid);
     errorCode=NO_ERROR;
 }
@@ -93,4 +90,8 @@ char* Grid_getErrorMsg() {
         case 5: return "no space left in provided column";
         default: return "an error has occurred, this error has no description.";
     }
+}
+
+void Grid_printError() {
+    fprintf(stderr,"Grid Error : %s (code=%d)\n",Grid_getErrorMsg(),Grid_getErrorCode());
 }

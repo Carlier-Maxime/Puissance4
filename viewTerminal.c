@@ -15,14 +15,14 @@ typedef enum {
 
 static ErrorCode errorCode;
 
-static void render(View *view) {
+static bool render(View *view) {
     if (!view) {
         errorCode=NO_SELF_ERROR;
-        return;
+        return false;
     }
     if (!view->grid) {
         errorCode=NO_GRID_ERROR;
-        return;
+        return false;
     }
     printf("--PUISSANCE 4--\n");
     for (unsigned i=0; i<GRID_HEIGHT; i++) {
@@ -43,13 +43,11 @@ static void render(View *view) {
     }
     printf("\n");
     errorCode=NO_ERROR;
+    return true;
 }
 
 static void destroy(View *view) {
-    if (!view) {
-        errorCode=NO_SELF_ERROR;
-        return;
-    }
+    if (!view) return;
     free(view);
     errorCode=NO_ERROR;
 }
@@ -86,4 +84,8 @@ char* ViewTerminal_getErrorMsg() {
         case 3: return "the grid is null";
         default: return "an error has occurred, this error has no description.";
     }
+}
+
+void ViewTerminal_printError() {
+    fprintf(stderr,"ViewTerminal Error : %s (code=%d)\n",ViewTerminal_getErrorMsg(),ViewTerminal_getErrorCode());
 }
