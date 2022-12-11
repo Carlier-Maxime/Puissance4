@@ -3,12 +3,12 @@
 #include "viewTerminal.h"
 
 int main() {
-    Grid *g = createGrid();
+    Grid *g = Grid_create();
     View *v = ViewTerminal_create(g);
-    v->render();
+    v->render(v);
     g->placeToken(g,2,1);
-    v->render();
+    v->render(v);
     v->destroy(v);
-    destroyGrid(g);
+    g->destroy(g);
     return 0;
 }

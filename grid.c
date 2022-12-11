@@ -16,14 +16,29 @@ static bool placeToken(Grid *grid, unsigned char column, unsigned char val) {
     return true;
 }
 
-Grid* createGrid() {
-    Grid *grid = malloc(sizeof(Grid));
-    if (!grid) return NULL;
-    grid->placeToken = placeToken;
-    return grid;
-}
-
-void destroyGrid(Grid* grid) {
+static void destroy(Grid* grid) {
     if (!grid) return;
     free(grid);
+}
+
+static bool reset(Grid *grid) {
+    if (!grid) return false;
+    for (unsigned i=0; i<GRID_HEIGHT; i++) {
+        for (unsigned j = 0; j < GRID_WIDTH; j++) {
+            grid->tab[i][j]=0;
+        }
+    }
+    return true;
+}
+
+Grid* Grid_create() {
+    Grid *grid = malloc(sizeof(Grid));
+    if (!grid) return NULL;
+    *grid = (Grid) {
+            {},
+            destroy,
+            placeToken,
+            reset
+    };
+    return grid;
 }

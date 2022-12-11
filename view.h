@@ -10,7 +10,7 @@
 typedef struct View_{
     Grid *grid;
     void *data;
-    void (*render)();
+    void (*render)(struct View_ *view);
     void (*destroy)(struct View_ *view);
 } View;
 
