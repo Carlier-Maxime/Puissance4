@@ -1,9 +1,25 @@
+/**
+ * @file main.c
+ * @authors Maxime Carlier and Mohammed Pombo
+ * @brief the main of program of Puissance 4
+ * @version 0.1
+ * @date 2022-12-12
+ * @copyright Copyright (c) 2022
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "grid.h"
 #include "viewTerminal.h"
 
-int main() {
+/**
+ * main function (entry of program)
+ * @param argc number of argument
+ * @param argv list of argument
+ * @return 0 if success
+ * @return 1 if failure
+ */
+int main(int argc, char* argv[]) {
     int status=EXIT_FAILURE;
     Grid *g = NULL;
     View *v = NULL;

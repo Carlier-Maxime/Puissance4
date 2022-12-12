@@ -1,6 +1,11 @@
-//
-// Created by Lenovo on 11/12/2022.
-//
+/**
+ * @file viewTerminal.h
+ * @authors Maxime Carlier and Mohammed Pombo
+ * @brief the view terminal
+ * @version 0.1
+ * @date 2022-12-12
+ * @copyright Copyright (c) 2022
+ */
 
 #ifndef PUISSANCE4_VIEWTERMINAL_H
 #define PUISSANCE4_VIEWTERMINAL_H

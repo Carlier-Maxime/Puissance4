@@ -1,20 +1,35 @@
-//
-// Created by Lenovo on 11/12/2022.
-//
+/**
+ * @file viewTerminal.c
+ * @authors Maxime Carlier and Mohammed Pombo
+ * @brief the view terminal implementation
+ * @version 0.1
+ * @date 2022-12-12
+ * @copyright Copyright (c) 2022
+ */
 
 #include <stdlib.h>
 #include <stdio.h>
 #include "viewTerminal.h"
 
+/**
+ * @enum ErrorCode
+ * @brief the enumeration of error code of view
+ */
 typedef enum {
-    NO_ERROR,
-    NO_MEMORY_ERROR,
-    NO_SELF_ERROR,
-    NO_GRID_ERROR
+    NO_ERROR, //!< no recent errors to report
+    NO_MEMORY_ERROR, //!< not enough free memory
+    NO_SELF_ERROR, //!< no self is provided
+    NO_GRID_ERROR //!< the grid is null
 } ErrorCode;
 
-static ErrorCode errorCode;
+static ErrorCode errorCode; //!< last view error code
 
+/**
+ * render the grid
+ * @param view self
+ * @return true if success
+ * @return false if failure (use ViewTerminal_getErrorCode() or ViewTerminal_getErrorMsg() for more information)
+ */
 static bool render(View *view) {
     if (!view) {
         errorCode=NO_SELF_ERROR;
@@ -46,12 +61,22 @@ static bool render(View *view) {
     return true;
 }
 
+/**
+ * destroy the view
+ * @param view self
+ */
 static void destroy(View *view) {
     if (!view) return;
     free(view);
     errorCode=NO_ERROR;
 }
 
+/**
+ * create new view terminal
+ * @param grid the grid pointer
+ * @return new view terminal
+ * @return NULL if failure (use ViewTerminal_getErrorCode() or ViewTerminal_getErrorMsg() for more information)
+ */
 View* ViewTerminal_create(Grid *grid) {
     if (!grid) {
         errorCode=NO_GRID_ERROR;
@@ -72,10 +97,18 @@ View* ViewTerminal_create(Grid *grid) {
     return v;
 }
 
+/**
+ * get error code
+ * @return the value of error code (use ViewTerminal_getErrorMsg() for more information)
+ */
 unsigned ViewTerminal_getErrorCode() {
     return errorCode;
 }
 
+/**
+ * get error message
+ * @return the error message based on error code
+ */
 char* ViewTerminal_getErrorMsg() {
     switch (errorCode) {
         case 0: return "no recent errors to report";
@@ -86,6 +119,9 @@ char* ViewTerminal_getErrorMsg() {
     }
 }
 
+/**
+ * print error in stderr
+ */
 void ViewTerminal_printError() {
     fprintf(stderr,"ViewTerminal Error : %s (code=%d)\n",ViewTerminal_getErrorMsg(),ViewTerminal_getErrorCode());
 }
