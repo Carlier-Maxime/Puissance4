@@ -9,9 +9,10 @@ input=src
 output=out
 object_dir=obj
 ood=$(output)/$(object_dir)
+.PHONY: build test
 
 build : $(ood)/main.o $(ood)/grid.o $(ood)/viewTerminal.o
-	$(CC) $(ood)/main.o $(ood)/grid.o $(ood)/viewTerminal.o -o $(output)/exec
+	$(CC) $(ood)/main.o $(ood)/grid.o $(ood)/viewTerminal.o -o $(output)/puissance4
 
 $(ood)/main.o : $(ood) $(input)/main.c
 	$(CC) -c $(input)/main.c -o $(ood)/main.o $(CFLAGS)
@@ -25,6 +26,9 @@ $(ood)/viewTerminal.o : $(ood) $(input)/viewTerminal.c $(input)/viewTerminal.h
 $(ood) :
 	mkdir $(output)
 	mkdir $(ood)
+
+test : test/main.c src/grid.c
+	$(CC) test/main.c src/grid.c -o $(output)/test -lcunit
 
 clean :
 	rm -r $(output)

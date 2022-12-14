@@ -4,3 +4,4 @@ project(Puissance4 C)
 set(CMAKE_C_STANDARD 99)
 
 add_executable(Puissance4 src/main.c src/grid.h src/grid.c src/view.h src/viewTerminal.c src/viewTerminal.h)
+add_executable(Test test/main.c)
