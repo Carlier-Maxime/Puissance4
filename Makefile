@@ -8,7 +8,7 @@ endif
 output=out
 object_dir=obj
 ood=$(output)/$(object_dir)
-.PHONY: build test clean
+.PHONY: build test clean mrproper
 
 build : $(ood)/src/main.o $(ood)/src/grid.o $(ood)/src/viewTerminal.o
 	$(CC) $^ -o $(output)/puissance4
@@ -25,4 +25,8 @@ $(ood)/test/%.o : test/%.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean :
-	rm -r $(output)
+	rm -r $(object_dir)
+
+mrproper : clean
+	rm $(output)/puissance4
+	rm $(output)/test
