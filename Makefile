@@ -5,21 +5,24 @@ ifeq '$(DEBUG)' '1'
 else
 	CFLAGS ?= -Wall -MMD
 endif
-input=src
 output=out
 object_dir=obj
 ood=$(output)/$(object_dir)
-.PHONY: build test
+.PHONY: build test clean
 
-build : $(ood)/main.o $(ood)/grid.o $(ood)/viewTerminal.o
+build : $(ood)/src/main.o $(ood)/src/grid.o $(ood)/src/viewTerminal.o
 	$(CC) $^ -o $(output)/puissance4
 
-$(ood)/%.o : $(input)/%.c
-	@mkdir -p $(ood)
+test : $(ood)/test/main.o $(ood)/src/grid.O
+	$(CC) $^ -o $(output)/test -lcunit
+
+$(ood)/src/%.o : src/%.c
+	@mkdir -p $(ood)/src
 	$(CC) $(CFLAGS) -c $< -o $@
 
-test : test/main.c src/grid.c
-	$(CC) test/main.c src/grid.c -o $(output)/test -lcunit
+$(ood)/test/%.o : test/%.c
+	@mkdir -p $(ood)/test
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean :
 	rm -r $(output)
