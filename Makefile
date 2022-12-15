@@ -13,7 +13,7 @@ ood=$(output)/$(object_dir)
 build : $(ood)/src/main.o $(ood)/src/grid.o $(ood)/src/viewTerminal.o
 	$(CC) $^ -o $(output)/puissance4
 
-test : $(ood)/test/main.o $(ood)/src/grid.O
+test : $(ood)/test/main.o $(ood)/src/grid.o $(ood)/test/grid.o
 	$(CC) $^ -o $(output)/test -lcunit
 
 $(ood)/src/%.o : src/%.c
