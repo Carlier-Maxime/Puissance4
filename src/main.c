@@ -1,5 +1,5 @@
 /**
- * @file main.c
+ * @file src/main.c
  * @authors Maxime Carlier and Mohammed Pombo
  * @brief the main of program of Puissance 4
  * @version 0.1

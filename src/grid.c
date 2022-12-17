@@ -1,5 +1,5 @@
 /**
- * @file grid.c
+ * @file src/grid.c
  * @authors Maxime Carlier and Mohammed Pombo
  * @brief the game grid implementation
  * @version 0.1

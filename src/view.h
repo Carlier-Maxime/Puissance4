@@ -1,5 +1,5 @@
 /**
- * @file view.h
+ * @file src/view.h
  * @authors Maxime Carlier and Mohammed Pombo
  * @brief the view
  * @version 0.1

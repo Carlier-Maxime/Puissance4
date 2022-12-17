@@ -1,5 +1,5 @@
 /**
- * @file viewTerminal.c
+ * @file src/viewTerminal.c
  * @authors Maxime Carlier and Mohammed Pombo
  * @brief the view terminal implementation
  * @version 0.1

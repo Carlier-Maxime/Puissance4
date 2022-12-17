@@ -1,15 +1,31 @@
+/**
+ * @file test/grid.c
+ * @authors Maxime Carlier and Mohammed Pombo
+ * @brief the game grid testing implementation
+ * @version 0.1
+ * @date 2022-12-17
+ * @copyright Copyright (c) 2022
+ */
+
 #include <CUnit/Basic.h>
 #include <stdlib.h>
 #include "../src/grid.h"
 #include "grid.h"
 
-static Grid *g = NULL;
+static Grid *g = NULL; // grid for testing
 
+/**
+ * create the grid and check that it went well
+ */
 void testCreate() {
     g=Grid_create();
     CU_ASSERT(g!=NULL)
 }
 
+/**
+ * test the placement of tokens on each column and
+ * verify that out of range values return an error
+ */
 void testPlaceToken() {
     CU_ASSERT(g!=NULL)
     g->placeToken(g,0,1);
@@ -32,17 +48,27 @@ void testPlaceToken() {
     CU_ASSERT(Grid_getErrorCode()!=0)
 }
 
+/**
+ * test the grid reset
+ */
 void testReset() {
     CU_ASSERT(g!=NULL)
     g->reset(g);
     CU_ASSERT(Grid_getErrorCode()==0)
 }
 
+/**
+ * test the grid destroy
+ */
 void testDestroy() {
     g->destroy(g);
     CU_ASSERT(Grid_getErrorCode()==0)
 }
 
+/**
+ * create the test suite for the grid and add all the necessary tests to it
+ * @return grid suite
+ */
 CU_Suite *TestGrid_create() {
     CU_Suite *grid = NULL;
     grid = CU_add_suite("Grid", NULL, NULL);
