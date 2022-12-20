@@ -32,6 +32,7 @@ typedef struct grid_{
     unsigned char tab[GRID_HEIGHT][GRID_WIDTH]; //!< the tab is grid
     void (*destroy)(struct grid_ *grid); //!< destroy function for destroy grid
     bool (*placeToken)(struct grid_ *grid, const unsigned char column, const unsigned char val); //!< placeToken function for place token in grid
+    bool (*isInWinAlignment)(struct grid_ *grid, const unsigned char column); //!< return true if last add of the column is in an alignment of 4 or more tokens
     bool (*reset)(struct grid_ *grid); //!< reset function for empty the tab
 } Grid;
 

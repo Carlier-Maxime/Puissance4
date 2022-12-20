@@ -28,7 +28,6 @@ void testGrid_Create() {
  * verify that out of range values return an error
  */
 void testGrid_PlaceToken() {
-    CU_ASSERT(g!=NULL)
     g->placeToken(g,0,1);
     CU_ASSERT(Grid_getErrorCode()==NO_ERROR)
     g->placeToken(g,1,2);
@@ -52,10 +51,38 @@ void testGrid_PlaceToken() {
 }
 
 /**
+ * test is in win alignment
+ */
+void testGrid_isInWinAlignment() {
+    g->reset(g);
+    CU_ASSERT(g->isInWinAlignment(g,0)==0)
+    g->placeToken(g,0,1);
+    g->placeToken(g,0,1);
+    g->placeToken(g,0,1);
+    CU_ASSERT(g->isInWinAlignment(g,0)==0)
+    g->placeToken(g,0,1);
+    CU_ASSERT(g->isInWinAlignment(g,0)==1)
+    g->placeToken(g,1,2);
+    g->placeToken(g,2,2);
+    g->placeToken(g,3,2);
+    CU_ASSERT(g->isInWinAlignment(g,2)==0)
+    g->placeToken(g,4,2);
+    CU_ASSERT(g->isInWinAlignment(g,2)==1)
+    g->placeToken(g,1,1);
+    g->placeToken(g,1,2);
+    g->placeToken(g,2,2);
+    g->placeToken(g,2,1);
+    g->placeToken(g,3,2);
+    g->placeToken(g,3,2);
+    CU_ASSERT(g->isInWinAlignment(g,3)==0)
+    g->placeToken(g,3,1);
+    CU_ASSERT(g->isInWinAlignment(g,3)==1)
+}
+
+/**
  * test the grid reset
  */
 void testGrid_Reset() {
-    CU_ASSERT(g!=NULL)
     g->reset(g);
     CU_ASSERT(Grid_getErrorCode()==NO_ERROR)
 }
@@ -82,6 +109,7 @@ CU_Suite *TestGrid_create() {
     if ((NULL == CU_add_test(grid, "create", testGrid_Create)) ||
         (NULL == CU_add_test(grid, "placeToken", testGrid_PlaceToken)) ||
         (NULL == CU_add_test(grid, "reset", testGrid_Reset)) ||
+        (NULL == CU_add_test(grid, "isInWinAlignment", testGrid_isInWinAlignment)) ||
         (NULL == CU_add_test(grid, "destroy", testGrid_Destroy)))
     {
         fprintf(stderr,"Error : add test for grid suite failed !\n");
