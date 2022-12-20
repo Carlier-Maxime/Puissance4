@@ -9,6 +9,7 @@
 
 #include "viewTerminal.h"
 #include "../src/viewTerminal.h"
+#include "../src/error.h"
 
 static View *vt = NULL; // ViewTerminal for testing
 static Grid *g = NULL; // Grid for testing viewTerminal
@@ -28,7 +29,7 @@ void testVt_Create() {
  */
 void testVt_Render() {
     vt->render(vt);
-    CU_ASSERT(ViewTerminal_getErrorCode()==0)
+    CU_ASSERT(ViewTerminal_getErrorCode()==NO_ERROR)
 }
 
 /**
@@ -36,7 +37,7 @@ void testVt_Render() {
  */
 void testVt_Destroy() {
     vt->destroy(vt);
-    CU_ASSERT(ViewTerminal_getErrorCode()==0)
+    CU_ASSERT(ViewTerminal_getErrorCode()==NO_ERROR)
     g->destroy(g);
 }
 

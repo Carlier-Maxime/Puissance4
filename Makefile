@@ -10,10 +10,10 @@ object_dir=obj
 ood=$(output)/$(object_dir)
 .PHONY: build test clean mrproper
 
-build : $(ood)/src/main.o $(ood)/src/grid.o $(ood)/src/viewTerminal.o
+build : $(ood)/src/main.o $(ood)/src/grid.o $(ood)/src/viewTerminal.o $(ood)/src/error.o
 	$(CC) $^ -o $(output)/puissance4
 
-test : $(ood)/test/main.o $(ood)/src/grid.o $(ood)/test/grid.o $(ood)/src/viewTerminal.o $(ood)/test/viewTerminal.o
+test : $(ood)/test/main.o $(ood)/src/grid.o $(ood)/test/grid.o $(ood)/src/viewTerminal.o $(ood)/test/viewTerminal.o $(ood)/src/error.o
 	$(CC) $^ -o $(output)/test -lcunit
 
 $(ood)/src/%.o : src/%.c

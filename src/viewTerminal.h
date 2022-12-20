@@ -14,7 +14,7 @@
 
 View* ViewTerminal_create(Grid *grid);
 unsigned ViewTerminal_getErrorCode();
-char* ViewTerminal_getErrorMsg();
+const char* ViewTerminal_getErrorMsg();
 void ViewTerminal_printError();
 
 #endif //PUISSANCE4_VIEWTERMINAL_H

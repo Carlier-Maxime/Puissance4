@@ -10,19 +10,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "grid.h"
-
-/**
- * @enum ErrorCode
- * @brief the enumeration of error code of grid
- */
-typedef enum {
-    NO_ERROR, //!< no recent errors to report
-    NO_MEMORY_ERROR, //!< not enough free memory
-    NO_SELF_ERROR, //!< no self is provided
-    COLUMN_OUT_OF_RANGE_ERROR, //!< the provided column is out of range
-    TOKEN_VALUE_ERROR, //!< the supplied token value is not allowed
-    NO_SPACE_IN_COLUMN_ERROR //!< no space left in provided column
-} ErrorCode;
+#include "error.h"
 
 static ErrorCode errorCode=NO_ERROR; //!< last grid error
 
@@ -117,16 +105,8 @@ unsigned Grid_getErrorCode() {
  * get grid error message
  * @return error message based on error code
  */
-char* Grid_getErrorMsg() {
-    switch (errorCode) {
-        case 0: return "no recent errors to report";
-        case 1: return "not enough free memory";
-        case 2: return "no self is provided";
-        case 3: return "the provided column is out of range";
-        case 4: return "the supplied token value is not allowed";
-        case 5: return "no space left in provided column";
-        default: return "an error has occurred, this error has no description.";
-    }
+const char* Grid_getErrorMsg() {
+    return Error_getMsg(errorCode);
 }
 
 /**

@@ -11,6 +11,7 @@
 #include <stdlib.h>
 #include "../src/grid.h"
 #include "grid.h"
+#include "../src/error.h"
 
 static Grid *g = NULL; // grid for testing
 
@@ -29,23 +30,25 @@ void testGrid_Create() {
 void testGrid_PlaceToken() {
     CU_ASSERT(g!=NULL)
     g->placeToken(g,0,1);
-    CU_ASSERT(Grid_getErrorCode()==0)
+    CU_ASSERT(Grid_getErrorCode()==NO_ERROR)
     g->placeToken(g,1,2);
-    CU_ASSERT(Grid_getErrorCode()==0)
+    CU_ASSERT(Grid_getErrorCode()==NO_ERROR)
     g->placeToken(g,2,1);
-    CU_ASSERT(Grid_getErrorCode()==0)
+    CU_ASSERT(Grid_getErrorCode()==NO_ERROR)
     g->placeToken(g,3,2);
-    CU_ASSERT(Grid_getErrorCode()==0)
+    CU_ASSERT(Grid_getErrorCode()==NO_ERROR)
     g->placeToken(g,4,1);
-    CU_ASSERT(Grid_getErrorCode()==0)
+    CU_ASSERT(Grid_getErrorCode()==NO_ERROR)
     g->placeToken(g,5,2);
-    CU_ASSERT(Grid_getErrorCode()==0)
+    CU_ASSERT(Grid_getErrorCode()==NO_ERROR)
     g->placeToken(g,6,1);
-    CU_ASSERT(Grid_getErrorCode()==0)
+    CU_ASSERT(Grid_getErrorCode()==NO_ERROR)
     g->placeToken(g,6,0);
-    CU_ASSERT(Grid_getErrorCode()!=0)
+    CU_ASSERT(Grid_getErrorCode()==TOKEN_VALUE_ERROR)
+    g->placeToken(g,6,3);
+    CU_ASSERT(Grid_getErrorCode()==TOKEN_VALUE_ERROR)
     g->placeToken(g,7,1);
-    CU_ASSERT(Grid_getErrorCode()!=0)
+    CU_ASSERT(Grid_getErrorCode()==COLUMN_OUT_OF_RANGE_ERROR)
 }
 
 /**
@@ -54,7 +57,7 @@ void testGrid_PlaceToken() {
 void testGrid_Reset() {
     CU_ASSERT(g!=NULL)
     g->reset(g);
-    CU_ASSERT(Grid_getErrorCode()==0)
+    CU_ASSERT(Grid_getErrorCode()==NO_ERROR)
 }
 
 /**
@@ -62,7 +65,7 @@ void testGrid_Reset() {
  */
 void testGrid_Destroy() {
     g->destroy(g);
-    CU_ASSERT(Grid_getErrorCode()==0)
+    CU_ASSERT(Grid_getErrorCode()==NO_ERROR)
 }
 
 /**

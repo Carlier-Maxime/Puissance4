@@ -10,17 +10,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "viewTerminal.h"
-
-/**
- * @enum ErrorCode
- * @brief the enumeration of error code of view
- */
-typedef enum {
-    NO_ERROR, //!< no recent errors to report
-    NO_MEMORY_ERROR, //!< not enough free memory
-    NO_SELF_ERROR, //!< no self is provided
-    NO_GRID_ERROR //!< the grid is null
-} ErrorCode;
+#include "error.h"
 
 static ErrorCode errorCode; //!< last view error code
 
@@ -112,14 +102,8 @@ unsigned ViewTerminal_getErrorCode() {
  * get error message
  * @return the error message based on error code
  */
-char* ViewTerminal_getErrorMsg() {
-    switch (errorCode) {
-        case 0: return "no recent errors to report";
-        case 1: return "not enough free memory";
-        case 2: return "no self is provided";
-        case 3: return "the grid is null";
-        default: return "an error has occurred, this error has no description.";
-    }
+const char* ViewTerminal_getErrorMsg() {
+    return Error_getMsg(errorCode);
 }
 
 /**

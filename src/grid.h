@@ -37,7 +37,7 @@ typedef struct grid_{
 
 Grid* Grid_create();
 unsigned Grid_getErrorCode();
-char* Grid_getErrorMsg();
+const char* Grid_getErrorMsg();
 void Grid_printError();
 
 #endif //PUISSANCE4_GRID_H
