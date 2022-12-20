@@ -66,7 +66,10 @@ static bool render(View *view) {
  * @param view self
  */
 static void destroy(View *view) {
-    if (!view) return;
+    if (!view) {
+        errorCode=NO_SELF_ERROR;
+        return;
+    }
     free(view);
     errorCode=NO_ERROR;
 }

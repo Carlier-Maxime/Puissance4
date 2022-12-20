@@ -17,7 +17,7 @@ static Grid *g = NULL; // grid for testing
 /**
  * create the grid and check that it went well
  */
-void testCreate() {
+void testGrid_Create() {
     g=Grid_create();
     CU_ASSERT(g!=NULL)
 }
@@ -26,7 +26,7 @@ void testCreate() {
  * test the placement of tokens on each column and
  * verify that out of range values return an error
  */
-void testPlaceToken() {
+void testGrid_PlaceToken() {
     CU_ASSERT(g!=NULL)
     g->placeToken(g,0,1);
     CU_ASSERT(Grid_getErrorCode()==0)
@@ -51,7 +51,7 @@ void testPlaceToken() {
 /**
  * test the grid reset
  */
-void testReset() {
+void testGrid_Reset() {
     CU_ASSERT(g!=NULL)
     g->reset(g);
     CU_ASSERT(Grid_getErrorCode()==0)
@@ -60,7 +60,7 @@ void testReset() {
 /**
  * test the grid destroy
  */
-void testDestroy() {
+void testGrid_Destroy() {
     g->destroy(g);
     CU_ASSERT(Grid_getErrorCode()==0)
 }
@@ -76,10 +76,10 @@ CU_Suite *TestGrid_create() {
         fprintf(stderr,"Error : add grid suite failed !\n");
         return NULL;
     }
-    if ((NULL == CU_add_test(grid, "create", testCreate)) ||
-        (NULL == CU_add_test(grid, "placeToken", testPlaceToken)) ||
-        (NULL == CU_add_test(grid, "reset", testReset)) ||
-        (NULL == CU_add_test(grid, "destroy", testDestroy)))
+    if ((NULL == CU_add_test(grid, "create", testGrid_Create)) ||
+        (NULL == CU_add_test(grid, "placeToken", testGrid_PlaceToken)) ||
+        (NULL == CU_add_test(grid, "reset", testGrid_Reset)) ||
+        (NULL == CU_add_test(grid, "destroy", testGrid_Destroy)))
     {
         fprintf(stderr,"Error : add test for grid suite failed !\n");
         return NULL;

@@ -13,7 +13,7 @@ ood=$(output)/$(object_dir)
 build : $(ood)/src/main.o $(ood)/src/grid.o $(ood)/src/viewTerminal.o
 	$(CC) $^ -o $(output)/puissance4
 
-test : $(ood)/test/main.o $(ood)/src/grid.o $(ood)/test/grid.o
+test : $(ood)/test/main.o $(ood)/src/grid.o $(ood)/test/grid.o $(ood)/src/viewTerminal.o $(ood)/test/viewTerminal.o
 	$(CC) $^ -o $(output)/test -lcunit
 
 $(ood)/src/%.o : src/%.c
@@ -25,7 +25,7 @@ $(ood)/test/%.o : test/%.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean :
-	rm -r $(object_dir)
+	rm -r $(ood)
 
 mrproper : clean
 	rm $(output)/puissance4
