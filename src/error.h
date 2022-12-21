@@ -1,7 +1,19 @@
+/**
+ * @file src/error.h
+ * @authors Maxime Carlier and Mohammed Pombo
+ * @brief the error system
+ * @version 0.1
+ * @date 2022-12-21
+ * @copyright Copyright (c) 2022
+ */
 
 #ifndef PUISSANCE4_ERROR_H
 #define PUISSANCE4_ERROR_H
 
+/**
+ * @enum ErrorCode
+ * @brief A enumeration of error codes
+ */
 typedef enum {
     NO_ERROR, //!< no recent errors to report
     NO_MEMORY_ERROR, //!< not enough free memory

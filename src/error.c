@@ -1,5 +1,19 @@
+/**
+ * @file src/error.c
+ * @authors Maxime Carlier and Mohammed Pombo
+ * @brief the error system
+ * @version 0.1
+ * @date 2022-12-21
+ * @copyright Copyright (c) 2022
+ */
+
 #include "error.h"
 
+/**
+ * allows to get the given error code message
+ * @param errorCode based on enumeration ErrorCode
+ * @return message correspondent of the given error code
+ */
 const char* Error_getMsg(unsigned errorCode) {
     switch (errorCode) {
         case NO_ERROR: return "no recent errors to report";
