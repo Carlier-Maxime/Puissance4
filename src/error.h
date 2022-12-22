@@ -3,7 +3,7 @@
  * @authors Maxime Carlier and Mohammed Pombo
  * @brief the error system
  * @version 0.1
- * @date 2022-12-21
+ * @date 2022-12-22
  * @copyright Copyright (c) 2022
  */
 
@@ -21,7 +21,8 @@ typedef enum {
     COLUMN_OUT_OF_RANGE_ERROR, //!< the provided column is out of range
     TOKEN_VALUE_ERROR, //!< the supplied token value is not allowed
     NO_SPACE_IN_COLUMN_ERROR, //!< no space left in provided column
-    NO_GRID_ERROR //!< the grid is null
+    NO_GRID_ERROR, //!< the grid is null
+    NO_NAME_ERROR //!< the name is null
 } ErrorCode;
 
 const char* Error_getMsg(unsigned errorCode);

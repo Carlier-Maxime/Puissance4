@@ -1,0 +1,29 @@
+/**
+ * @file src/player.h
+ * @authors Maxime Carlier and Mohammed Pombo
+ * @brief the player
+ * @version 0.1
+ * @date 2022-12-22
+ * @copyright Copyright (c) 2022
+ */
+
+#ifndef PUISSANCE4_PLAYER_H
+#define PUISSANCE4_PLAYER_H
+
+#include "view.h"
+
+/**
+ * @struct Player
+ * @brief A structure to represent an player
+ */
+typedef struct player_ {
+    char* name;
+    short (*choiceColumn)(View *view);
+    void (*destroy)(struct player_ *player);
+} Player;
+
+const char* Player_getErrorMsg();
+void Player_setError(unsigned code);
+void Player_printError(Player *player);
+
+#endif //PUISSANCE4_PLAYER_H
