@@ -13,7 +13,7 @@
 #include "grid.h"
 #include "../src/error.h"
 
-static Grid *g = NULL; // grid for testing
+static Grid *g = NULL; //!< grid for testing
 
 /**
  * create the grid and check that it went well

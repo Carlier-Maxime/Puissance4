@@ -12,7 +12,7 @@
 #include "../src/error.h"
 #include "../src/ViewTerminal.h"
 
-static Player *p=NULL; // player for testing
+static Player *p=NULL; //!< player for testing
 
 /**
  * test create player

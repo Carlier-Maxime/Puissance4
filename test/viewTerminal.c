@@ -11,8 +11,8 @@
 #include "../src/viewTerminal.h"
 #include "../src/error.h"
 
-static View *vt = NULL; // ViewTerminal for testing
-static Grid *g = NULL; // Grid for testing viewTerminal
+static View *vt = NULL; //!< ViewTerminal for testing
+static Grid *g = NULL; //!< Grid for testing viewTerminal
 
 /**
  * test create the viewTerminal

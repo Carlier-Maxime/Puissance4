@@ -17,9 +17,9 @@
  * @brief A structure to represent an player
  */
 typedef struct player_ {
-    char* name;
-    short (*choiceColumn)(View *view);
-    void (*destroy)(struct player_ *player);
+    char* name; //!< the name of player
+    short (*choiceColumn)(View *view); //!< choose the column to place the token in the desired location
+    void (*destroy)(struct player_ *player); //!< destroy function for destroy player
 } Player;
 
 const char* Player_getErrorMsg();
