@@ -1,0 +1,40 @@
+/**
+ * @file test/player.c
+ * @authors Maxime Carlier and Mohammed Pombo
+ * @brief the player testing implementation
+ * @version 0.1
+ * @date 2022-12-27
+ * @copyright Copyright (c) 2022
+ */
+#include "player.h"
+#include "../src/player.h"
+#include "../src/error.h"
+
+/**
+ * test set error player
+ */
+static void Test_setError() {
+    Player_setError(NO_ERROR);
+    CU_ASSERT(strcmp(Player_getErrorMsg(), Error_getMsg(NO_ERROR))==0)
+    Player_setError(NO_MEMORY_ERROR);
+    CU_ASSERT(strcmp(Player_getErrorMsg(), Error_getMsg(NO_MEMORY_ERROR))==0)
+    Player_setError(NO_SELF_ERROR);
+    CU_ASSERT(strcmp(Player_getErrorMsg(), Error_getMsg(NO_SELF_ERROR))==0)
+}
+
+/**
+ * create the test suite for the player and add all the necessary tests to it
+ * @return player suite
+ */
+CU_Suite *TestPlayer_create() {
+    CU_Suite *player = CU_add_suite("player",NULL,NULL);
+    if (!player) {
+        fprintf(stderr,"Error : add player suite failed !\n");
+        return NULL;
+    }
+    if ((NULL == CU_add_test(player,"setError",Test_setError))) {
+        fprintf(stderr,"Error : add test for player suite failed !\n");
+        return NULL;
+    }
+    return player;
+}

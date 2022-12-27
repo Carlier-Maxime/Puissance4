@@ -3,7 +3,7 @@
  * @authors Maxime Carlier and Mohammed Pombo
  * @brief the player human
  * @version 0.1
- * @date 2022-12-22
+ * @date 2022-12-27
  * @copyright Copyright (c) 2022
  */
 
@@ -26,8 +26,13 @@ static short choiceColumn(View *view) {
  * @param player (self)
  */
 static void destroy(Player *player) {
+    if (!player) {
+        Player_setError(NO_SELF_ERROR);
+        return;
+    }
     free(player->name);
     free(player);
+    Player_setError(NO_ERROR);
 }
 
 /**
