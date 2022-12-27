@@ -17,7 +17,7 @@ static Grid *g = NULL; // Grid for testing viewTerminal
 /**
  * test create the viewTerminal
  */
-void testVt_Create() {
+static void Test_Create() {
     g = Grid_create();
     CU_ASSERT(g!=NULL)
     vt = ViewTerminal_create(g);
@@ -27,7 +27,7 @@ void testVt_Create() {
 /**
  * test render the viewTerminal
  */
-void testVt_Render() {
+static void Test_Render() {
     vt->render(vt);
     CU_ASSERT(ViewTerminal_getErrorCode()==NO_ERROR)
 }
@@ -35,7 +35,7 @@ void testVt_Render() {
 /**
  * test destroy the viewTerminal
  */
-void testVt_Destroy() {
+static void Test_Destroy() {
     vt->destroy(vt);
     CU_ASSERT(ViewTerminal_getErrorCode()==NO_ERROR)
     g->destroy(g);
@@ -51,9 +51,9 @@ CU_Suite *TestViewTerminal_create() {
         fprintf(stderr,"Error : add view terminal suite failed !\n");
         return NULL;
     }
-    if ((NULL == CU_add_test(viewTerminal, "create", testVt_Create)) ||
-        (NULL == CU_add_test(viewTerminal, "render", testVt_Render)) ||
-        (NULL == CU_add_test(viewTerminal, "destroy", testVt_Destroy)))
+    if ((NULL == CU_add_test(viewTerminal, "create", Test_Create)) ||
+        (NULL == CU_add_test(viewTerminal, "render", Test_Render)) ||
+        (NULL == CU_add_test(viewTerminal, "destroy", Test_Destroy)))
     {
         fprintf(stderr,"Error : add test for view terminal suite failed !\n");
         return NULL;

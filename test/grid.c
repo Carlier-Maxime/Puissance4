@@ -18,7 +18,7 @@ static Grid *g = NULL; // grid for testing
 /**
  * create the grid and check that it went well
  */
-void testGrid_Create() {
+static void Test_Create() {
     g=Grid_create();
     CU_ASSERT(g!=NULL)
 }
@@ -27,7 +27,7 @@ void testGrid_Create() {
  * test the placement of tokens on each column and
  * verify that out of range values return an error
  */
-void testGrid_PlaceToken() {
+static void Test_PlaceToken() {
     g->placeToken(g,0,1);
     CU_ASSERT(Grid_getErrorCode()==NO_ERROR)
     g->placeToken(g,1,2);
@@ -53,7 +53,7 @@ void testGrid_PlaceToken() {
 /**
  * test is in win alignment
  */
-void testGrid_isInWinAlignment() {
+static void Test_isInWinAlignment() {
     g->reset(g);
     CU_ASSERT(g->isInWinAlignment(g,0)==0)
     g->placeToken(g,0,1);
@@ -82,7 +82,7 @@ void testGrid_isInWinAlignment() {
 /**
  * test the grid reset
  */
-void testGrid_Reset() {
+static void Test_Reset() {
     g->reset(g);
     CU_ASSERT(Grid_getErrorCode()==NO_ERROR)
 }
@@ -90,7 +90,7 @@ void testGrid_Reset() {
 /**
  * test the grid destroy
  */
-void testGrid_Destroy() {
+static void Test_Destroy() {
     g->destroy(g);
     CU_ASSERT(Grid_getErrorCode()==NO_ERROR)
 }
@@ -106,11 +106,11 @@ CU_Suite *TestGrid_create() {
         fprintf(stderr,"Error : add grid suite failed !\n");
         return NULL;
     }
-    if ((NULL == CU_add_test(grid, "create", testGrid_Create)) ||
-        (NULL == CU_add_test(grid, "placeToken", testGrid_PlaceToken)) ||
-        (NULL == CU_add_test(grid, "reset", testGrid_Reset)) ||
-        (NULL == CU_add_test(grid, "isInWinAlignment", testGrid_isInWinAlignment)) ||
-        (NULL == CU_add_test(grid, "destroy", testGrid_Destroy)))
+    if ((NULL == CU_add_test(grid, "create", Test_Create)) ||
+        (NULL == CU_add_test(grid, "placeToken", Test_PlaceToken)) ||
+        (NULL == CU_add_test(grid, "reset", Test_Reset)) ||
+        (NULL == CU_add_test(grid, "isInWinAlignment", Test_isInWinAlignment)) ||
+        (NULL == CU_add_test(grid, "destroy", Test_Destroy)))
     {
         fprintf(stderr,"Error : add test for grid suite failed !\n");
         return NULL;
