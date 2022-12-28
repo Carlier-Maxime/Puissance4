@@ -3,7 +3,7 @@
  * @authors Maxime Carlier and Mohammed Pombo
  * @brief the player human
  * @version 0.1
- * @date 2022-12-27
+ * @date 2022-12-28
  * @copyright Copyright (c) 2022
  */
 
@@ -18,7 +18,14 @@
  * @return index column
  */
 static short choiceColumn(View *view) {
-    return 0; // TODO
+    if (!view) {
+        Player_setError(NO_VIEW_ERROR);
+        return -1;
+    }
+    short val = view->choiceColumn(view);
+    if (val<0 || val>=GRID_WIDTH) Player_setError(COLUMN_OUT_OF_RANGE_ERROR);
+    else Player_setError(NO_ERROR);
+    return val;
 }
 
 /**

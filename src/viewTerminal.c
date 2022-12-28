@@ -3,7 +3,7 @@
  * @authors Maxime Carlier and Mohammed Pombo
  * @brief the view terminal implementation
  * @version 0.1
- * @date 2022-12-12
+ * @date 2022-12-28
  * @copyright Copyright (c) 2022
  */
 
@@ -52,6 +52,19 @@ static bool render(View *view) {
 }
 
 /**
+ * choose the column to place the token in the desired location
+ * @param view (self)
+ * @return index column
+ */
+static short choiceColumn(View *view) {
+    printf("Choisie la colonne où inséré ton pion (0-%d) : ",GRID_WIDTH-1);
+    short val=-1;
+    while (val<0 || val>=GRID_WIDTH) scanf("%hd",&val);
+    errorCode=NO_ERROR;
+    return val;
+}
+
+/**
  * destroy the view
  * @param view self
  */
@@ -84,6 +97,7 @@ View* ViewTerminal_create(Grid *grid) {
             grid,
             NULL,
             render,
+            choiceColumn,
             destroy
     };
     errorCode=NO_ERROR;

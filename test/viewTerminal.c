@@ -3,7 +3,7 @@
  * @authors Maxime Carlier and Mohammed Pombo
  * @brief the viewTerminal testing implementation
  * @version 0.1
- * @date 2022-12-17
+ * @date 2022-12-28
  * @copyright Copyright (c) 2022
  */
 
@@ -33,6 +33,16 @@ static void Test_Render() {
 }
 
 /**
+ * test choiceColumn
+ */
+static void Test_ChoiceColumn() {
+    vt->choiceColumn(NULL);
+    CU_ASSERT(ViewTerminal_getErrorCode()==NO_ERROR)
+    vt->choiceColumn(vt);
+    CU_ASSERT(ViewTerminal_getErrorCode()==NO_ERROR)
+}
+
+/**
  * test destroy the viewTerminal
  */
 static void Test_Destroy() {
@@ -53,6 +63,7 @@ CU_Suite *TestViewTerminal_create() {
     }
     if ((NULL == CU_add_test(viewTerminal, "create", Test_Create)) ||
         (NULL == CU_add_test(viewTerminal, "render", Test_Render)) ||
+        (NULL == CU_add_test(viewTerminal, "choiceColumn", Test_ChoiceColumn)) ||
         (NULL == CU_add_test(viewTerminal, "destroy", Test_Destroy)))
     {
         fprintf(stderr,"Error : add test for view terminal suite failed !\n");
