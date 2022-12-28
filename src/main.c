@@ -11,6 +11,7 @@
 #include <stdlib.h>
 #include "grid.h"
 #include "viewTerminal.h"
+#include "playerHuman.h"
 
 /**
  * main function (entry of program)
@@ -40,15 +41,39 @@ int main(int argc, char* argv[]) {
         View_printError();
         goto quit;
     }
-    if (!g->placeToken(g,2,1)) {
-        fprintf(stderr,"Error : grid place token failed !\n");
-        Grid_printError();
+    Player *p1 = PlayerHuman_create("player 1");
+    if (!p1) {
+        fprintf(stderr,"Error : create player 1 failed !\n");
+        Player_printError();
         goto quit;
     }
-    if (!v->render(v)) {
-        fprintf(stderr,"Error : view render failed !\n");
-        View_printError();
+    Player *p2 = PlayerHuman_create("player 2");
+    if (!p2) {
+        fprintf(stderr,"Error : create player 2 failed !\n");
+        Player_printError();
         goto quit;
+    }
+    Player *p=p1;
+    short column=0;
+    while (!g->isInWinAlignment(g,column)) {
+        column = p->choiceColumn(v);
+        if (column<0) {
+            fprintf(stderr,"Error : choice column failed !\n");
+            Player_printError();
+            goto quit;
+        }
+        if (!g->placeToken(g,column,(p==p1) ? 1 : 2)) {
+            fprintf(stderr,"Error : grid place token failed !\n");
+            Grid_printError();
+            goto quit;
+        }
+        if (!v->render(v)) {
+            fprintf(stderr,"Error : view render failed !\n");
+            View_printError();
+            goto quit;
+        }
+        if (p==p1) p=p2;
+        else p=p1;
     }
     status=EXIT_SUCCESS;
 quit:
