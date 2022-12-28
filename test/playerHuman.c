@@ -3,7 +3,7 @@
  * @authors Maxime Carlier and Mohammed Pombo
  * @brief the playerHuman testing implementation
  * @version 0.1
- * @date 2022-12-27
+ * @date 2022-12-28
  * @copyright Copyright (c) 2022
  */
 
@@ -20,10 +20,10 @@ static Player *p=NULL; //!< player for testing
 static void Test_create() {
     p = PlayerHuman_create(NULL);
     CU_ASSERT(p==NULL)
-    CU_ASSERT(strcmp(Player_getErrorMsg(),Error_getMsg(NO_NAME_ERROR))==0)
+    CU_ASSERT(Player_getErrorCode()==NO_NAME_ERROR)
     p = PlayerHuman_create("Maxime");
     CU_ASSERT(p!=NULL)
-    CU_ASSERT(strcmp(Player_getErrorMsg(), Error_getMsg(NO_ERROR))==0)
+    CU_ASSERT(Player_getErrorCode()==NO_ERROR)
 }
 
 /**
@@ -33,12 +33,12 @@ static void Test_destroy() {
     if (!p) {
         p = PlayerHuman_create("Mohammed");
         CU_ASSERT(p!=NULL)
-        CU_ASSERT(strcmp(Player_getErrorMsg(), Error_getMsg(NO_ERROR))==0)
+        CU_ASSERT(Player_getErrorCode()==NO_ERROR)
     }
     p->destroy(NULL);
-    CU_ASSERT(strcmp(Player_getErrorMsg(), Error_getMsg(NO_SELF_ERROR))==0)
+    CU_ASSERT(Player_getErrorCode()==NO_SELF_ERROR)
     p->destroy(p);
-    CU_ASSERT(strcmp(Player_getErrorMsg(), Error_getMsg(NO_ERROR))==0)
+    CU_ASSERT(Player_getErrorCode()==NO_ERROR)
     p=NULL;
 }
 
@@ -47,11 +47,11 @@ static void Test_destroy() {
  */
 static void Test_choiceColumn() {
     p->choiceColumn(NULL);
-    CU_ASSERT(strcmp(Player_getErrorMsg(), Error_getMsg(NO_VIEW_ERROR))==0)
+    CU_ASSERT(Player_getErrorCode()==NO_VIEW_ERROR)
     Grid *g = Grid_create();
     View *v = ViewTerminal_create(g);
     short c = p->choiceColumn(v);
-    CU_ASSERT(strcmp(Player_getErrorMsg(), Error_getMsg(NO_ERROR))==0)
+    CU_ASSERT(Player_getErrorCode()==NO_ERROR)
     CU_ASSERT(c>=0)
     CU_ASSERT(c<GRID_WIDTH)
     v->destroy(v);

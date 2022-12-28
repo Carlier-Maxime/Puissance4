@@ -3,7 +3,7 @@
  * @authors Maxime Carlier and Mohammed Pombo
  * @brief the player testing implementation
  * @version 0.1
- * @date 2022-12-27
+ * @date 2022-12-28
  * @copyright Copyright (c) 2022
  */
 #include "player.h"
@@ -15,11 +15,11 @@
  */
 static void Test_setError() {
     Player_setError(NO_ERROR);
-    CU_ASSERT(strcmp(Player_getErrorMsg(), Error_getMsg(NO_ERROR))==0)
+    CU_ASSERT(Player_getErrorCode()==NO_ERROR)
     Player_setError(NO_MEMORY_ERROR);
-    CU_ASSERT(strcmp(Player_getErrorMsg(), Error_getMsg(NO_MEMORY_ERROR))==0)
+    CU_ASSERT(Player_getErrorCode()==NO_MEMORY_ERROR)
     Player_setError(NO_SELF_ERROR);
-    CU_ASSERT(strcmp(Player_getErrorMsg(), Error_getMsg(NO_SELF_ERROR))==0)
+    CU_ASSERT(Player_getErrorCode()==NO_SELF_ERROR)
 }
 
 /**

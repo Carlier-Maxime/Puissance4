@@ -3,7 +3,7 @@
  * @authors Maxime Carlier and Mohammed Pombo
  * @brief the player implementation
  * @version 0.1
- * @date 2022-12-22
+ * @date 2022-12-28
  * @copyright Copyright (c) 2022
  */
 
@@ -12,6 +12,14 @@
 #include "error.h"
 
 static ErrorCode errorCode; //!< the player error code
+
+/**
+ * get error code
+ * @return the value of error code (use Player_getErrorMsg() for more information)
+ */
+int Player_getErrorCode() {
+    return errorCode;
+}
 
 /**
  * get error message of the player error code

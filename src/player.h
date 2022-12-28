@@ -3,7 +3,7 @@
  * @authors Maxime Carlier and Mohammed Pombo
  * @brief the player
  * @version 0.1
- * @date 2022-12-22
+ * @date 2022-12-28
  * @copyright Copyright (c) 2022
  */
 
@@ -22,6 +22,7 @@ typedef struct player_ {
     void (*destroy)(struct player_ *player); //!< destroy function for destroy player
 } Player;
 
+int Player_getErrorCode();
 const char* Player_getErrorMsg();
 void Player_setError(unsigned code);
 void Player_printError(Player *player);
