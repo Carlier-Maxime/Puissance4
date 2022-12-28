@@ -25,6 +25,6 @@ typedef struct player_ {
 int Player_getErrorCode();
 const char* Player_getErrorMsg();
 void Player_setError(unsigned code);
-void Player_printError(Player *player);
+void Player_printError();
 
 #endif //PUISSANCE4_PLAYER_H

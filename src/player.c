@@ -39,9 +39,8 @@ void Player_setError(unsigned code) {
 
 /**
  * print player error code in the stderr
- * @param player (self)
  */
-void Player_printError(Player *player) {
+void Player_printError() {
     fprintf(stderr,"Player Error : %s (code=%d)\n",Player_getErrorMsg(),errorCode);
 }
 

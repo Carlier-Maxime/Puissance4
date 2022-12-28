@@ -24,4 +24,9 @@ typedef struct View_{
     void (*destroy)(struct View_ *view); //!< destroy function for destroy view
 } View;
 
+unsigned View_getErrorCode();
+const char* View_getErrorMsg();
+void View_setError(unsigned code);
+void View_printError();
+
 #endif //PUISSANCE4_VIEW_H

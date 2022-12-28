@@ -32,12 +32,12 @@ int main(int argc, char* argv[]) {
     v = ViewTerminal_create(g);
     if (!v) {
         fprintf(stderr,"Error : create view terminal failed !\n");
-        ViewTerminal_printError();
+        View_printError();
         goto quit;
     }
     if (!v->render(v)) {
         fprintf(stderr,"Error : view render failed !\n");
-        ViewTerminal_printError();
+        View_printError();
         goto quit;
     }
     if (!g->placeToken(g,2,1)) {
@@ -47,7 +47,7 @@ int main(int argc, char* argv[]) {
     }
     if (!v->render(v)) {
         fprintf(stderr,"Error : view render failed !\n");
-        ViewTerminal_printError();
+        View_printError();
         goto quit;
     }
     status=EXIT_SUCCESS;

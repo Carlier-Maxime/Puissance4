@@ -29,7 +29,7 @@ static void Test_Create() {
  */
 static void Test_Render() {
     vt->render(vt);
-    CU_ASSERT(ViewTerminal_getErrorCode()==NO_ERROR)
+    CU_ASSERT(View_getErrorCode()==NO_ERROR)
 }
 
 /**
@@ -37,9 +37,9 @@ static void Test_Render() {
  */
 static void Test_ChoiceColumn() {
     vt->choiceColumn(NULL);
-    CU_ASSERT(ViewTerminal_getErrorCode()==NO_ERROR)
+    CU_ASSERT(View_getErrorCode()==NO_ERROR)
     vt->choiceColumn(vt);
-    CU_ASSERT(ViewTerminal_getErrorCode()==NO_ERROR)
+    CU_ASSERT(View_getErrorCode()==NO_ERROR)
 }
 
 /**
@@ -47,7 +47,7 @@ static void Test_ChoiceColumn() {
  */
 static void Test_Destroy() {
     vt->destroy(vt);
-    CU_ASSERT(ViewTerminal_getErrorCode()==NO_ERROR)
+    CU_ASSERT(View_getErrorCode()==NO_ERROR)
     g->destroy(g);
 }
 

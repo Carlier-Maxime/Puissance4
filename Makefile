@@ -8,7 +8,7 @@ endif
 output=out
 object_dir=obj
 ood=$(output)/$(object_dir)
-OBJS_SRC = $(ood)/src/grid.o $(ood)/src/viewTerminal.o $(ood)/src/error.o $(ood)/src/player.o $(ood)/src/playerHuman.o
+OBJS_SRC = $(ood)/src/grid.o $(ood)/src/viewTerminal.o $(ood)/src/error.o $(ood)/src/player.o $(ood)/src/playerHuman.o $(ood)/src/view.o
 OBJS_TEST = $(ood)/test/grid.o $(ood)/test/viewTerminal.o $(ood)/test/player.o $(ood)/test/playerHuman.o
 .PHONY: build test clean mrproper
 
