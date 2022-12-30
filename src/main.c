@@ -24,6 +24,7 @@ int main(int argc, char* argv[]) {
     int status=EXIT_FAILURE;
     Grid *g = NULL;
     View *v = NULL;
+    Player *p2=NULL, *p1=NULL;
     g = Grid_create();
     if (!g) {
         fprintf(stderr,"Error : create grid failed !\n");
@@ -41,13 +42,13 @@ int main(int argc, char* argv[]) {
         View_printError();
         goto quit;
     }
-    Player *p1 = PlayerHuman_create("player 1");
+    p1 = PlayerHuman_create("player 1");
     if (!p1) {
         fprintf(stderr,"Error : create player 1 failed !\n");
         Player_printError();
         goto quit;
     }
-    Player *p2 = PlayerHuman_create("player 2");
+    p2 = PlayerHuman_create("player 2");
     if (!p2) {
         fprintf(stderr,"Error : create player 2 failed !\n");
         Player_printError();
@@ -77,6 +78,8 @@ int main(int argc, char* argv[]) {
     }
     status=EXIT_SUCCESS;
 quit:
+    if (p2) p2->destroy(p2);
+    if (p1) p1->destroy(p1);
     if (v) v->destroy(v);
     if (g) g->destroy(g);
     return status;

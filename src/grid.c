@@ -69,7 +69,7 @@ bool isInWinAlignmentVertical(Grid *grid, const unsigned char column, unsigned c
  * @param row : grid row index
  * @return true if the index token [row][column] is in an win horizontal alignment else false
  */
-bool isInWinAlignmentHorizontal(Grid *grid, unsigned char column, const unsigned char row) {
+bool isInWinAlignmentHorizontal(Grid *grid, char column, const unsigned char row) {
     unsigned char nbToken=0, val=grid->tab[row][column];
     while (column>=0 && grid->tab[row][column]==val) {
         nbToken++;
@@ -90,7 +90,7 @@ bool isInWinAlignmentHorizontal(Grid *grid, unsigned char column, const unsigned
  * @param row : grid row index
  * @return true if the index token [row][column] is in an win diagonal alignment else false
  */
-bool isInWinAlignmentDiagonal(Grid *grid, unsigned char column, unsigned char row) {
+bool isInWinAlignmentDiagonal(Grid *grid, char column, char row) {
     unsigned char nbToken=0, val=grid->tab[row][column];
     while (row>=0 && column>=0 && grid->tab[row][column]==val) {
         nbToken++;
@@ -99,7 +99,7 @@ bool isInWinAlignmentDiagonal(Grid *grid, unsigned char column, unsigned char ro
     }
     row+=nbToken+1;
     column+=nbToken+1;
-    unsigned tmp = 0;
+    char tmp = 0;
     while (row<GRID_HEIGHT && column<GRID_WIDTH && grid->tab[row][column]==val) {
         tmp++;
         column++;
