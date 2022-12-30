@@ -75,7 +75,7 @@ bool isInWinAlignmentHorizontal(Grid *grid, char column, const unsigned char row
         nbToken++;
         column--;
     }
-    column+=nbToken+1;
+    column=(char)(column+nbToken+1);
     while (column<GRID_WIDTH && grid->tab[row][column]==val) {
         nbToken++;
         column++;
@@ -97,16 +97,16 @@ bool isInWinAlignmentDiagonal(Grid *grid, char column, char row) {
         column--;
         row--;
     }
-    row+=nbToken+1;
-    column+=nbToken+1;
+    row=(char)(row+nbToken+1);
+    column=(char)(column+nbToken+1);
     char tmp = 0;
     while (row<GRID_HEIGHT && column<GRID_WIDTH && grid->tab[row][column]==val) {
         tmp++;
         column++;
         row++;
     }
-    row-=tmp+1;
-    column-=tmp+1;
+    row=(char)(row-tmp+1);
+    column=(char)(column-tmp+1);
     nbToken+=tmp;
     if (nbToken>=4) return true;
     nbToken=0;
@@ -115,8 +115,8 @@ bool isInWinAlignmentDiagonal(Grid *grid, char column, char row) {
         column--;
         row++;
     }
-    row-=nbToken+1;
-    column+=nbToken+1;
+    row=(char)(row-nbToken+1);
+    column=(char)(column+nbToken+1);
     while (row>=0 && column<GRID_WIDTH && grid->tab[row][column]==val) {
         nbToken++;
         column++;
@@ -145,7 +145,7 @@ static bool isInWinAlignment(Grid *grid, const unsigned char column) {
     if (!grid->tab[row][column]) row++;
     errorCode=NO_ERROR;
     if (row>=GRID_HEIGHT) return false;
-    return isInWinAlignmentVertical(grid,column,row) || isInWinAlignmentHorizontal(grid,column,row) || isInWinAlignmentDiagonal(grid,column,row);
+    return isInWinAlignmentVertical(grid,column,row) || isInWinAlignmentHorizontal(grid,(char) column,row) || isInWinAlignmentDiagonal(grid, (char) column,(char) row);
 }
 
 /**
