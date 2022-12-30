@@ -57,6 +57,7 @@ int main(int argc, char* argv[]) {
     Player *p=p1;
     short column=0;
     while (!g->isInWinAlignment(g,column)) {
+        v->showPlayer(v,p);
         column = p->choiceColumn(v);
         if (column<0) {
             fprintf(stderr,"Error : choice column failed !\n");
