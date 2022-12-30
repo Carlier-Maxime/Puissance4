@@ -105,8 +105,8 @@ bool isInWinAlignmentDiagonal(Grid *grid, char column, char row) {
         column++;
         row++;
     }
-    row=(char)(row-tmp+1);
-    column=(char)(column-tmp+1);
+    row=(char)(row-(tmp+1));
+    column=(char)(column-(tmp+1));
     nbToken+=tmp;
     if (nbToken>=4) return true;
     nbToken=0;
@@ -115,7 +115,7 @@ bool isInWinAlignmentDiagonal(Grid *grid, char column, char row) {
         column--;
         row++;
     }
-    row=(char)(row-nbToken+1);
+    row=(char)(row-(nbToken+1));
     column=(char)(column+nbToken+1);
     while (row>=0 && column<GRID_WIDTH && grid->tab[row][column]==val) {
         nbToken++;
