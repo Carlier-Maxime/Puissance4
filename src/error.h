@@ -3,7 +3,7 @@
  * @authors Maxime Carlier and Mohammed Pombo
  * @brief the error system
  * @version 0.1
- * @date 2022-12-27
+ * @date 2022-12-30
  * @copyright Copyright (c) 2022
  */
 
@@ -24,6 +24,7 @@ typedef enum {
     NO_GRID_ERROR, //!< the grid is null
     NO_NAME_ERROR, //!< the name is null
     NO_VIEW_ERROR, //!< the view is null
+    NO_PLAYER_ERROR, //!< the player is null
 } ErrorCode;
 
 const char* Error_getMsg(unsigned errorCode);

@@ -3,7 +3,7 @@
  * @authors Maxime Carlier and Mohammed Pombo
  * @brief the view terminal implementation
  * @version 0.1
- * @date 2022-12-28
+ * @date 2022-12-30
  * @copyright Copyright (c) 2022
  */
 
@@ -63,6 +63,23 @@ static short choiceColumn(View *view) {
 }
 
 /**
+ * show player information
+ * @param view (self)
+ * @param player
+ * @return true if success
+ * @return false if failed
+ */
+static bool showPlayer(View *view, Player *player) {
+    if (!player) {
+        View_setError(NO_PLAYER_ERROR);
+        return false;
+    }
+    printf("%s\n",player->name);
+    View_setError(NO_ERROR);
+    return true;
+}
+
+/**
  * destroy the view
  * @param view self
  */
@@ -96,6 +113,7 @@ View* ViewTerminal_create(Grid *grid) {
             NULL,
             render,
             choiceColumn,
+            showPlayer,
             destroy
     };
     View_setError(NO_ERROR);

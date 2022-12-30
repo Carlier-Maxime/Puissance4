@@ -10,16 +10,18 @@
 #ifndef PUISSANCE4_PLAYER_H
 #define PUISSANCE4_PLAYER_H
 
+typedef struct View_ View; //!< pre declaration of view
+
 #include "view.h"
 
 /**
  * @struct Player
  * @brief A structure to represent an player
  */
-typedef struct player_ {
+typedef struct Player_ {
     char* name; //!< the name of player
     short (*choiceColumn)(View *view); //!< choose the column to place the token in the desired location
-    void (*destroy)(struct player_ *player); //!< destroy function for destroy player
+    void (*destroy)(struct Player_ *player); //!< destroy function for destroy player
 } Player;
 
 int Player_getErrorCode();

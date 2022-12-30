@@ -3,14 +3,17 @@
  * @authors Maxime Carlier and Mohammed Pombo
  * @brief the view
  * @version 0.1
- * @date 2022-12-28
+ * @date 2022-12-30
  * @copyright Copyright (c) 2022
  */
 
 #ifndef PUISSANCE4_VIEW_H
 #define PUISSANCE4_VIEW_H
 
+typedef struct Player_ Player; //!< pre declaration of player
+
 #include "grid.h"
+#include "player.h"
 
 /**
  * @struct View
@@ -21,6 +24,7 @@ typedef struct View_{
     void *data; //!< additional data
     bool (*render)(struct View_ *view); //!< render function for render grid
     short (*choiceColumn)(struct View_ *view); //!< choose the column to place the token in the desired location
+    bool (*showPlayer)(struct View_ *view, Player *player); //!< show player information
     void (*destroy)(struct View_ *view); //!< destroy function for destroy view
 } View;
 
