@@ -3,7 +3,7 @@
  * @authors Maxime Carlier and Mohammed Pombo
  * @brief the main of program of Puissance 4
  * @version 0.1
- * @date 2022-12-12
+ * @date 2023-01-01
  * @copyright Copyright (c) 2022
  */
 
@@ -12,6 +12,7 @@
 #include "grid.h"
 #include "viewTerminal.h"
 #include "playerHuman.h"
+#include "error.h"
 
 /**
  * main function (entry of program)
@@ -62,17 +63,27 @@ int main(int argc, char* argv[]) {
             View_printError();
             goto quit;
         }
-        column = p->choiceColumn(v);
-        if (column<0) {
-            fprintf(stderr,"Error : choice column failed !\n");
-            Player_printError();
-            goto quit;
-        }
-        if (!g->placeToken(g,column,(p==p1) ? 1 : 2)) {
-            fprintf(stderr,"Error : grid place token failed !\n");
-            Grid_printError();
-            goto quit;
-        }
+        do {
+            column = p->choiceColumn(v);
+            if (column<0) {
+                fprintf(stderr,"Error : choice column failed !\n");
+                Player_printError();
+                goto quit;
+            }
+            if (!g->placeToken(g,column,(p==p1) ? 1 : 2)) {
+                if (Grid_getErrorCode()==NO_SPACE_IN_COLUMN_ERROR) {
+                    if (!v->invalidColumn(v,column)) {
+                        fprintf(stderr,"Error : indicate the column is invalid as failed !\n");
+                        View_printError();
+                        goto quit;
+                    }
+                } else {
+                    fprintf(stderr,"Error : grid place token failed !\n");
+                    Grid_printError();
+                    goto quit;
+                }
+            }
+        } while (Grid_getErrorCode()!=NO_ERROR);
         if (!v->render(v)) {
             fprintf(stderr,"Error : view render failed !\n");
             View_printError();

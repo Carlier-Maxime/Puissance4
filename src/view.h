@@ -26,6 +26,7 @@ typedef struct View_{
     short (*choiceColumn)(struct View_ *view); //!< choose the column to place the token in the desired location
     bool (*showPlayer)(struct View_ *view, Player *player); //!< show player information
     bool (*win)(struct View_ *view, Player *player); //!< show win message
+    bool (*invalidColumn)(struct View_ *view, unsigned char column); //!< indicates that the column is invalid
     void (*destroy)(struct View_ *view); //!< destroy function for destroy view
 } View;
 

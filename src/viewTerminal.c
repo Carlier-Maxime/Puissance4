@@ -97,6 +97,23 @@ static bool win(View *view, Player *player) {
 }
 
 /**
+ * indicates that the column is invalid
+ * @param view (self)
+ * @param column index
+ * @return true if success
+ * @return false if failure
+ */
+bool invalidColumn(View *view, unsigned char column) {
+    if (column>=GRID_WIDTH) {
+        View_setError(COLUMN_OUT_OF_RANGE_ERROR);
+        return false;
+    }
+    printf("la colonne d'index %d n'est pas valide !\n",column);
+    View_setError(NO_ERROR);
+    return true;
+}
+
+/**
  * destroy the view
  * @param view self
  */
@@ -132,6 +149,7 @@ View* ViewTerminal_create(Grid *grid) {
             choiceColumn,
             showPlayer,
             win,
+            invalidColumn,
             destroy
     };
     View_setError(NO_ERROR);

@@ -74,6 +74,18 @@ static void Test_Win() {
 }
 
 /**
+ * test invalid column
+ */
+static void Test_InvalidColumn() {
+    CU_ASSERT(!vt->invalidColumn(vt,GRID_WIDTH))
+    CU_ASSERT(View_getErrorCode()==COLUMN_OUT_OF_RANGE_ERROR)
+    CU_ASSERT(vt->invalidColumn(vt,5))
+    CU_ASSERT(View_getErrorCode()==NO_ERROR)
+    CU_ASSERT(vt->invalidColumn(NULL,0))
+    CU_ASSERT(View_getErrorCode()==NO_ERROR)
+}
+
+/**
  * test destroy the viewTerminal
  */
 static void Test_Destroy() {
@@ -97,6 +109,7 @@ CU_Suite *TestViewTerminal_create() {
         (NULL == CU_add_test(viewTerminal, "choiceColumn", Test_ChoiceColumn)) ||
         (NULL == CU_add_test(viewTerminal, "showPlayer", Test_ShowPlayer)) ||
         (NULL == CU_add_test(viewTerminal, "win", Test_Win)) ||
+        (NULL == CU_add_test(viewTerminal, "invalidColumn", Test_InvalidColumn)) ||
         (NULL == CU_add_test(viewTerminal, "destroy", Test_Destroy)))
     {
         fprintf(stderr,"Error : add test for view terminal suite failed !\n");
