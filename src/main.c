@@ -57,7 +57,11 @@ int main(int argc, char* argv[]) {
     Player *p=p1;
     short column=0;
     while (!g->isInWinAlignment(g,column)) {
-        v->showPlayer(v,p);
+        if (!v->showPlayer(v,p)) {
+            fprintf(stderr,"Error : view show player failed !\n");
+            View_printError();
+            goto quit;
+        }
         column = p->choiceColumn(v);
         if (column<0) {
             fprintf(stderr,"Error : choice column failed !\n");
@@ -76,6 +80,13 @@ int main(int argc, char* argv[]) {
         }
         if (p==p1) p=p2;
         else p=p1;
+    }
+    if (p==p1) p=p2;
+    else p=p1;
+    if (!v->win(v,p)) {
+        fprintf(stderr,"Error : view win failed !\n");
+        View_printError();
+        goto quit;
     }
     status=EXIT_SUCCESS;
 quit:

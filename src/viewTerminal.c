@@ -3,7 +3,7 @@
  * @authors Maxime Carlier and Mohammed Pombo
  * @brief the view terminal implementation
  * @version 0.1
- * @date 2022-12-30
+ * @date 2023-01-01
  * @copyright Copyright (c) 2022
  */
 
@@ -80,6 +80,23 @@ static bool showPlayer(View *view, Player *player) {
 }
 
 /**
+ * show win message
+ * @param view (self)
+ * @param player as win
+ * @return true if success
+ * @return false if failed
+ */
+static bool win(View *view, Player *player) {
+    if (!player) {
+        View_setError(NO_PLAYER_ERROR);
+        return false;
+    }
+    printf("%s à gagner !!\n",player->name);
+    View_setError(NO_ERROR);
+    return true;
+}
+
+/**
  * destroy the view
  * @param view self
  */
@@ -114,6 +131,7 @@ View* ViewTerminal_create(Grid *grid) {
             render,
             choiceColumn,
             showPlayer,
+            win,
             destroy
     };
     View_setError(NO_ERROR);
