@@ -106,7 +106,9 @@ CU_Suite *TestViewTerminal_create() {
     }
     if ((NULL == CU_add_test(viewTerminal, "create", Test_Create)) ||
         (NULL == CU_add_test(viewTerminal, "render", Test_Render)) ||
+        #if defined(REQUIRE_USER_INPUT) && REQUIRE_USER_INPUT==1
         (NULL == CU_add_test(viewTerminal, "choiceColumn", Test_ChoiceColumn)) ||
+        #endif
         (NULL == CU_add_test(viewTerminal, "showPlayer", Test_ShowPlayer)) ||
         (NULL == CU_add_test(viewTerminal, "win", Test_Win)) ||
         (NULL == CU_add_test(viewTerminal, "invalidColumn", Test_InvalidColumn)) ||

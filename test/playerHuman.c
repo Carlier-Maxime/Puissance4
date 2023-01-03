@@ -78,7 +78,9 @@ CU_Suite *TestPlayerHuman_create() {
         return NULL;
     }
     if ((NULL == CU_add_test(playerHuman,"create",Test_create)) ||
+        #if defined(REQUIRE_USER_INPUT) && REQUIRE_USER_INPUT==1
         (NULL == CU_add_test(playerHuman,"choiceColumn",Test_choiceColumn)) ||
+        #endif
         (NULL == CU_add_test(playerHuman,"destroy",Test_destroy)))
     {
         fprintf(stderr,"Error : add test for playerHuman suite failed !\n");
