@@ -3,7 +3,7 @@
  * @authors Maxime Carlier and Mohammed Pombo
  * @brief the game grid implementation
  * @version 0.1
- * @date 2022-12-12
+ * @date 2023-01-03
  * @copyright Copyright (c) 2022
  */
 
@@ -179,6 +179,33 @@ static bool reset(Grid *grid) {
 }
 
 /**
+ * Removes the top token from the specified column in the given grid.
+ *
+ * @param grid The grid containing the token to be removed.
+ * @param column The column from which to remove the top token.
+ * @return true if a token was successfully removed, false otherwise.
+ */
+bool removeTopToken(struct grid_ *grid, const unsigned char column) {
+    if (!grid) {
+        errorCode=NO_SELF_ERROR;
+        return false;
+    }
+    if (column>=GRID_WIDTH) {
+        errorCode=COLUMN_OUT_OF_RANGE_ERROR;
+        return false;
+    }
+    unsigned char i=0;
+    while (!grid->tab[i][column] && i<GRID_HEIGHT) i++;
+    if (i>=GRID_HEIGHT) {
+        errorCode=NO_TOKEN_IN_COLUMN;
+        return false;
+    }
+    grid->tab[i][column]=0;
+    errorCode=NO_ERROR;
+    return true;
+}
+
+/**
  * create new grid
  * @return new grid
  * @return NULL if failure (use Grid_getErrorCode() or Grid_getErrorMsg() for more information)
@@ -194,7 +221,8 @@ Grid* Grid_create() {
             destroy,
             placeToken,
             isInWinAlignment,
-            reset
+            reset,
+            removeTopToken
     };
     errorCode=NO_ERROR;
     return grid;

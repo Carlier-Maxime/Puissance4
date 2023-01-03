@@ -96,6 +96,24 @@ static void Test_Destroy() {
 }
 
 /**
+ * test remove token
+ */
+static void Test_RemoveTopToken() {
+    if (!g) return;
+    CU_ASSERT_FALSE(g->removeTopToken(NULL,5))
+    CU_ASSERT(Grid_getErrorCode()==NO_SELF_ERROR)
+    CU_ASSERT_FALSE(g->removeTopToken(g,GRID_WIDTH))
+    CU_ASSERT(Grid_getErrorCode()==COLUMN_OUT_OF_RANGE_ERROR)
+    g->reset(g);
+    g->placeToken(g,0,1);
+    CU_ASSERT_TRUE(g->removeTopToken(g,0))
+    printf("Grid error = %s\n",Grid_getErrorMsg());
+    CU_ASSERT(Grid_getErrorCode()==NO_ERROR)
+    CU_ASSERT_FALSE(g->removeTopToken(g,0))
+    CU_ASSERT(Grid_getErrorCode()==NO_TOKEN_IN_COLUMN)
+}
+
+/**
  * create the test suite for the grid and add all the necessary tests to it
  * @return grid suite
  */
@@ -110,6 +128,7 @@ CU_Suite *TestGrid_create() {
         (NULL == CU_add_test(grid, "placeToken", Test_PlaceToken)) ||
         (NULL == CU_add_test(grid, "reset", Test_Reset)) ||
         (NULL == CU_add_test(grid, "isInWinAlignment", Test_isInWinAlignment)) ||
+        (NULL == CU_add_test(grid, "removeTopToken", Test_RemoveTopToken)) ||
         (NULL == CU_add_test(grid, "destroy", Test_Destroy)))
     {
         fprintf(stderr,"Error : add test for grid suite failed !\n");

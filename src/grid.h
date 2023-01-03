@@ -3,7 +3,7 @@
  * @authors Maxime Carlier and Mohammed Pombo
  * @brief the game grid
  * @version 0.1
- * @date 2022-12-12
+ * @date 2023-01-03
  * @copyright Copyright (c) 2022
  */
 
@@ -34,6 +34,7 @@ typedef struct grid_{
     bool (*placeToken)(struct grid_ *grid, const unsigned char column, const unsigned char val); //!< placeToken function for place token in grid
     bool (*isInWinAlignment)(struct grid_ *grid, const unsigned char column); //!< return true if last add of the column is in an alignment of 4 or more tokens
     bool (*reset)(struct grid_ *grid); //!< reset function for empty the tab
+    bool (*removeTopToken)(struct grid_ *grid, const unsigned char column); //!< remove up token in the column
 } Grid;
 
 Grid* Grid_create();

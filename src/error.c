@@ -3,7 +3,7 @@
  * @authors Maxime Carlier and Mohammed Pombo
  * @brief the error system
  * @version 0.1
- * @date 2022-12-30
+ * @date 2023-01-03
  * @copyright Copyright (c) 2022
  */
 
@@ -26,6 +26,7 @@ const char* Error_getMsg(unsigned errorCode) {
         case NO_NAME_ERROR: return "the name is null";
         case NO_VIEW_ERROR: return "the view is null";
         case NO_PLAYER_ERROR: return "the player is null";
+        case NO_TOKEN_IN_COLUMN: return "the column no contain a token";
         default: return "an error has occurred, this error has no description.";
     }
 }

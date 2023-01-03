@@ -3,7 +3,7 @@
  * @authors Maxime Carlier and Mohammed Pombo
  * @brief the error system
  * @version 0.1
- * @date 2022-12-30
+ * @date 2023-01-03
  * @copyright Copyright (c) 2022
  */
 
@@ -25,6 +25,7 @@ typedef enum {
     NO_NAME_ERROR, //!< the name is null
     NO_VIEW_ERROR, //!< the view is null
     NO_PLAYER_ERROR, //!< the player is null
+    NO_TOKEN_IN_COLUMN //!< the column no contain a token
 } ErrorCode;
 
 const char* Error_getMsg(unsigned errorCode);
