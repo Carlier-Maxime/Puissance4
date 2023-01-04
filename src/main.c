@@ -11,7 +11,7 @@
 #include <stdlib.h>
 #include "grid.h"
 #include "viewTerminal.h"
-#include "playerHuman.h"
+#include "player.h"
 #include "error.h"
 
 /**
@@ -43,13 +43,13 @@ int main(int argc, char* argv[]) {
         View_printError();
         goto quit;
     }
-    p1 = PlayerHuman_create("player 1");
+    p1 = Player_create(v->choicePlayer(v),"player 1");
     if (!p1) {
         fprintf(stderr,"Error : create player 1 failed !\n");
         Player_printError();
         goto quit;
     }
-    p2 = PlayerHuman_create("player 2");
+    p2 = Player_create(v->choicePlayer(v),"player 2");
     if (!p2) {
         fprintf(stderr,"Error : create player 2 failed !\n");
         Player_printError();
