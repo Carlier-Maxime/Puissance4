@@ -3,7 +3,7 @@
  * @authors Maxime Carlier and Mohammed Pombo
  * @brief the playerHuman testing implementation
  * @version 0.1
- * @date 2022-12-28
+ * @date 2022-01-04
  * @copyright Copyright (c) 2022
  */
 
@@ -46,11 +46,11 @@ static void Test_destroy() {
  * test choice column
  */
 static void Test_choiceColumn() {
-    p->choiceColumn(NULL);
+    p->choiceColumn(NULL,1);
     CU_ASSERT(Player_getErrorCode()==NO_VIEW_ERROR)
     Grid *g = Grid_create();
     View *v = ViewTerminal_create(g);
-    short c = p->choiceColumn(v);
+    short c = p->choiceColumn(v,2);
     CU_ASSERT(Player_getErrorCode()==NO_ERROR)
     CU_ASSERT(c>=0)
     CU_ASSERT(c<GRID_WIDTH)

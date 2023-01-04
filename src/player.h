@@ -3,7 +3,7 @@
  * @authors Maxime Carlier and Mohammed Pombo
  * @brief the player
  * @version 0.1
- * @date 2022-12-28
+ * @date 2023-01-04
  * @copyright Copyright (c) 2022
  */
 
@@ -20,7 +20,7 @@ typedef struct View_ View; //!< pre declaration of view
  */
 typedef struct Player_ {
     char* name; //!< the name of player
-    short (*choiceColumn)(View *view); //!< choose the column to place the token in the desired location
+    short (*choiceColumn)(View *view, const unsigned char val); //!< choose the column to place the token in the desired location
     void (*destroy)(struct Player_ *player); //!< destroy function for destroy player
 } Player;
 

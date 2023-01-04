@@ -3,7 +3,7 @@
  * @authors Maxime Carlier and Mohammed Pombo
  * @brief the main of program of Puissance 4
  * @version 0.1
- * @date 2023-01-01
+ * @date 2023-01-04
  * @copyright Copyright (c) 2022
  */
 
@@ -64,7 +64,7 @@ int main(int argc, char* argv[]) {
             goto quit;
         }
         do {
-            column = p->choiceColumn(v);
+            column = p->choiceColumn(v,(p==p1) ? 1 : 2);
             if (column<0) {
                 fprintf(stderr,"Error : choice column failed !\n");
                 Player_printError();
