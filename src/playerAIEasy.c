@@ -37,7 +37,13 @@ static short choiceColumn(View *view, const unsigned char tokenValue) {
         g->removeTopToken(g,i);
     }
     Player_setError(NO_ERROR);
-    return (short) (rand()%(6+1));
+    int val = (rand()%(6+1));
+    while (!g->placeToken(g,val,tokenValue)) {
+        g->removeTopToken(g,val);
+        val = (rand()%(6+1));
+    }
+    g->removeTopToken(g,val);
+    return (short) val;
 }
 
 Player *PlayerAIEasy_create(const char* name) {
