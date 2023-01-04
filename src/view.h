@@ -11,6 +11,7 @@
 #define PUISSANCE4_VIEW_H
 
 typedef struct Player_ Player; //!< pre declaration of player
+typedef enum PlayerType_ PlayerType; //!< pre declaration of player type enumeration
 
 #include "grid.h"
 #include "player.h"
@@ -65,6 +66,13 @@ typedef struct View_{
      * @return false if failure
      */
     bool (*invalidColumn)(struct View_ *view, unsigned char column);
+
+    /**
+     * choice player in PlayerType
+     * @param view (self)
+     * @return PlayerType corresponding to choice
+     */
+    PlayerType (*choicePlayer)(struct View_ *view);
 
     /**
      * destroy the view

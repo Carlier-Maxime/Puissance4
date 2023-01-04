@@ -37,6 +37,16 @@ typedef struct Player_ {
 } Player;
 
 /**
+ * @enum PlayerType
+ * @brief A enumeration of player type
+ */
+typedef enum PlayerType_ {
+    PLAYER_NONE,
+    PLAYER_HUMAN,
+    PLAYER_AI_EASY
+} PlayerType;
+
+/**
  * get error code
  * @return the value of error code (use Player_getErrorMsg() for more information)
  */

@@ -9,6 +9,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include "viewTerminal.h"
 #include "error.h"
 
@@ -81,6 +82,15 @@ bool invalidColumn(View *view, unsigned char column) {
     return true;
 }
 
+static PlayerType choicePlayer(View *view) {
+    printf("Choisie le type de joueur (human/ai_easy) : ");
+    char s[16] = "none";
+    while (strcmp(s,"human")!=0 && strcmp(s,"ai_easy")!=0) scanf("%15s",s);
+    if (strcmp(s, "human") == 0) return PLAYER_HUMAN;
+    else if (strcmp(s, "ai_easy") == 0) return PLAYER_AI_EASY;
+    else return PLAYER_NONE;
+}
+
 static void destroy(View *view) {
     if (!view) {
         View_setError(NO_SELF_ERROR);
@@ -108,6 +118,7 @@ View* ViewTerminal_create(Grid *grid) {
             showPlayer,
             win,
             invalidColumn,
+            choicePlayer,
             destroy
     };
     View_setError(NO_ERROR);
