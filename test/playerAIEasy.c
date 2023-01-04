@@ -9,6 +9,7 @@
 
 #include "playerAIEasy.h"
 #include "../src/playerAIEasy.h"
+#include "../src/viewTerminal.h"
 
 static Player *p = NULL;
 
@@ -44,7 +45,28 @@ static void Test_destroy() {
  * test choice column
  */
 static void Test_choiceColumn() {
-
+    p->choiceColumn(NULL,1);
+    CU_ASSERT(Player_getErrorCode()==NO_VIEW_ERROR)
+    Grid *g = Grid_create();
+    View *v = ViewTerminal_create(g);
+    short c = p->choiceColumn(v,2);
+    CU_ASSERT(Player_getErrorCode()==NO_ERROR)
+    CU_ASSERT(c>=0)
+    CU_ASSERT(c<GRID_WIDTH)
+    g->placeToken(g,0,1);
+    g->placeToken(g,1,1);
+    g->placeToken(g,3,1);
+    c = p->choiceColumn(v,2);
+    CU_ASSERT(Player_getErrorCode()==NO_ERROR)
+    CU_ASSERT(c==2)
+    g->placeToken(g,4,2);
+    g->placeToken(g,4,2);
+    g->placeToken(g,4,2);
+    c = p->choiceColumn(v,2);
+    CU_ASSERT(Player_getErrorCode()==NO_ERROR)
+    CU_ASSERT(c==4)
+    v->destroy(v);
+    g->destroy(g);
 }
 
 /**
