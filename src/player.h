@@ -72,4 +72,11 @@ void Player_setError(ErrorCode code);
  */
 void Player_printError();
 
+/**
+ * create player with type specified
+ * @param type of player
+ * @return new player with type specified
+ */
+Player *Player_create(PlayerType type, const char *name);
+
 #endif //PUISSANCE4_PLAYER_H

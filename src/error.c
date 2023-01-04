@@ -22,6 +22,7 @@ const char* Error_getMsg(unsigned errorCode) {
         case NO_VIEW_ERROR: return "the view is null";
         case NO_PLAYER_ERROR: return "the player is null";
         case NO_TOKEN_IN_COLUMN: return "the column no contain a token";
+        case UNKNOWN_TYPE: return "the type is unknown";
         default: return "an error has occurred, this error has no description.";
     }
 }

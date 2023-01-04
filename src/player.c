@@ -9,6 +9,8 @@
 
 #include <stdio.h>
 #include "player.h"
+#include "playerHuman.h"
+#include "playerAIEasy.h"
 #include "error.h"
 
 static ErrorCode errorCode; //!< the player error code
@@ -29,3 +31,13 @@ void Player_printError() {
     fprintf(stderr,"Player Error : %s (code=%d)\n",Player_getErrorMsg(),errorCode);
 }
 
+Player *Player_create(PlayerType type, const char *name) {
+    switch (type) {
+        case PLAYER_HUMAN: return PlayerHuman_create(name);
+        case PLAYER_AI_EASY: return PlayerAIEasy_create(name);
+        case PLAYER_NONE: return NULL;
+        default:
+            errorCode=UNKNOWN_TYPE;
+            return NULL;
+    }
+}

@@ -25,7 +25,8 @@ typedef enum {
     NO_NAME_ERROR, //!< the name is null
     NO_VIEW_ERROR, //!< the view is null
     NO_PLAYER_ERROR, //!< the player is null
-    NO_TOKEN_IN_COLUMN //!< the column no contain a token
+    NO_TOKEN_IN_COLUMN, //!< the column no contain a token
+    UNKNOWN_TYPE //!< the type is unknown
 } ErrorCode;
 
 /**
