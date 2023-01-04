@@ -32,6 +32,7 @@ void Player_printError() {
 }
 
 Player *Player_create(PlayerType type, const char *name) {
+    errorCode=NO_ERROR;
     switch (type) {
         case PLAYER_HUMAN: return PlayerHuman_create(name);
         case PLAYER_AI_EASY: return PlayerAIEasy_create(name);

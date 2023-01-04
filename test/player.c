@@ -22,13 +22,28 @@ static void Test_setError() {
     CU_ASSERT(Player_getErrorCode()==NO_SELF_ERROR)
 }
 
+static void Test_create() {
+    CU_ASSERT(Player_create(PLAYER_NONE,"")==NULL)
+    CU_ASSERT(Player_getErrorCode()==NO_ERROR)
+    CU_ASSERT(Player_create(256,"")==NULL)
+    CU_ASSERT(Player_getErrorCode()==UNKNOWN_TYPE)
+    CU_ASSERT(Player_create(PLAYER_AI_EASY,NULL)==NULL)
+    CU_ASSERT(Player_getErrorCode()==NO_NAME_ERROR)
+    Player *p = Player_create(PLAYER_AI_EASY,"tester");
+    CU_ASSERT(p!=NULL)
+    CU_ASSERT(Player_getErrorCode()==NO_ERROR)
+    p->destroy(p);
+}
+
 CU_Suite *TestPlayer_create() {
     CU_Suite *player = CU_add_suite("player",NULL,NULL);
     if (!player) {
         fprintf(stderr,"Error : add player suite failed !\n");
         return NULL;
     }
-    if ((NULL == CU_add_test(player,"setError",Test_setError))) {
+    if ((NULL == CU_add_test(player,"setError",Test_setError)) ||
+        (NULL == CU_add_test(player,"create",Test_create))
+    ) {
         fprintf(stderr,"Error : add test for player suite failed !\n");
         return NULL;
     }
