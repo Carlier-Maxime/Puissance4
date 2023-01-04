@@ -42,6 +42,7 @@ static short choiceColumn(View *view, const unsigned char tokenValue) {
 
 Player *PlayerAIEasy_create(const char* name) {
     Player *p = PlayerAIBase_create(name);
+    if (!p) return NULL;
     p->choiceColumn = choiceColumn;
     return p;
 }

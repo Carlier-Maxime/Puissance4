@@ -12,6 +12,7 @@
 #include "viewTerminal.h"
 #include "player.h"
 #include "playerHuman.h"
+#include "playerAIEasy.h"
 
 /**
  * execute different unit test
@@ -28,6 +29,8 @@ int main() {
     if (!player) goto quit;
     CU_Suite *playerHuman = TestPlayerHuman_create();
     if (!playerHuman) goto quit;
+    CU_Suite *playerAIEasy = TestPlayerAIEasy_create();
+    if (!playerAIEasy) goto quit;
     CU_basic_set_mode(CU_BRM_VERBOSE);
     CU_basic_run_tests();
 quit:
