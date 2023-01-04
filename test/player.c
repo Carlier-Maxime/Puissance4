@@ -3,8 +3,8 @@
  * @authors Maxime Carlier and Mohammed Pombo
  * @brief the player testing implementation
  * @version 0.1
- * @date 2022-12-28
- * @copyright Copyright (c) 2022
+ * @date 2023-01-04
+ * @copyright Copyright (c) 2023
  */
 #include "player.h"
 #include "../src/player.h"
@@ -22,10 +22,6 @@ static void Test_setError() {
     CU_ASSERT(Player_getErrorCode()==NO_SELF_ERROR)
 }
 
-/**
- * create the test suite for the player and add all the necessary tests to it
- * @return player suite
- */
 CU_Suite *TestPlayer_create() {
     CU_Suite *player = CU_add_suite("player",NULL,NULL);
     if (!player) {

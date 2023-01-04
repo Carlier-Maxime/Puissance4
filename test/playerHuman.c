@@ -3,8 +3,8 @@
  * @authors Maxime Carlier and Mohammed Pombo
  * @brief the playerHuman testing implementation
  * @version 0.1
- * @date 2022-01-04
- * @copyright Copyright (c) 2022
+ * @date 2023-01-04
+ * @copyright Copyright (c) 2023
  */
 
 #include "playerHuman.h"
@@ -67,10 +67,6 @@ static int Test_Clean() {
     return CUE_SUCCESS;
 }
 
-/**
- * create the test suite for the playerHuman and add all the necessary tests to it
- * @return playerHuman suite
- */
 CU_Suite *TestPlayerHuman_create() {
     CU_Suite *playerHuman = CU_add_suite("playerHuman",NULL,Test_Clean);
     if (!playerHuman) {

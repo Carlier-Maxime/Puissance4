@@ -3,8 +3,8 @@
  * @authors Maxime Carlier and Mohammed Pombo
  * @brief the player ai base implementation
  * @version 0.1
- * @date 2023-01-03
- * @copyright Copyright (c) 2022
+ * @date 2023-01-04
+ * @copyright Copyright (c) 2023
  */
 
 #include <stdlib.h>
@@ -23,10 +23,6 @@ static void initRandom() {
     initRng=true;
 }
 
-/**
- * destroy the player
- * @param player (self)
- */
 static void destroy(Player *player) {
     if (!player) {
         Player_setError(NO_SELF_ERROR);
@@ -36,12 +32,6 @@ static void destroy(Player *player) {
     free(player);
     Player_setError(NO_ERROR);
 }
-
-/**
- * create the base ai player
- * @param name of the player (not null)
- * @return new base ai player
- */
 
 Player *PlayerAIBase_create(const char* name) {
     if (!name) {

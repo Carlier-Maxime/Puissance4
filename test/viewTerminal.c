@@ -3,8 +3,8 @@
  * @authors Maxime Carlier and Mohammed Pombo
  * @brief the viewTerminal testing implementation
  * @version 0.1
- * @date 2022-12-30
- * @copyright Copyright (c) 2022
+ * @date 2023-01-04
+ * @copyright Copyright (c) 2023
  */
 
 #include "viewTerminal.h"
@@ -94,10 +94,6 @@ static void Test_Destroy() {
     g->destroy(g);
 }
 
-/**
- * create the test suite for the viewTerminal and add all the necessary tests to it
- * @return viewTerminal suite
- */
 CU_Suite *TestViewTerminal_create() {
     CU_Suite *viewTerminal = CU_add_suite("ViewTerminal", NULL, NULL);
     if (!viewTerminal) {

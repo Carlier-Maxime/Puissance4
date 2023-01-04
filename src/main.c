@@ -4,7 +4,7 @@
  * @brief the main of program of Puissance 4
  * @version 0.1
  * @date 2023-01-04
- * @copyright Copyright (c) 2022
+ * @copyright Copyright (c) 2023
  */
 
 #include <stdio.h>

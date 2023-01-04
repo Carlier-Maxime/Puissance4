@@ -4,7 +4,7 @@
  * @brief the player human
  * @version 0.1
  * @date 2023-01-04
- * @copyright Copyright (c) 2022
+ * @copyright Copyright (c) 2023
  */
 
 #include <stdlib.h>
@@ -12,11 +12,6 @@
 #include "playerHuman.h"
 #include "error.h"
 
-/**
- * choose the column to place the token in the desired location
- * @param view used for current game
- * @return index column
- */
 static short choiceColumn(View *view, const unsigned char val) {
     if (!view) {
         Player_setError(NO_VIEW_ERROR);
@@ -28,10 +23,6 @@ static short choiceColumn(View *view, const unsigned char val) {
     return column;
 }
 
-/**
- * destroy the player
- * @param player (self)
- */
 static void destroy(Player *player) {
     if (!player) {
         Player_setError(NO_SELF_ERROR);
@@ -42,11 +33,6 @@ static void destroy(Player *player) {
     Player_setError(NO_ERROR);
 }
 
-/**
- * create the human player
- * @param name of the player (not null)
- * @return new human player
- */
 Player *PlayerHuman_create(const char* name) {
     if (!name) {
         Player_setError(NO_NAME_ERROR);

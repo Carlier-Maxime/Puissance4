@@ -3,8 +3,8 @@
  * @authors Maxime Carlier and Mohammed Pombo
  * @brief the error system
  * @version 0.1
- * @date 2023-01-03
- * @copyright Copyright (c) 2022
+ * @date 2023-01-04
+ * @copyright Copyright (c) 2023
  */
 
 #ifndef PUISSANCE4_ERROR_H
@@ -28,6 +28,11 @@ typedef enum {
     NO_TOKEN_IN_COLUMN //!< the column no contain a token
 } ErrorCode;
 
+/**
+ * allows to get the given error code message
+ * @param errorCode based on enumeration ErrorCode
+ * @return message correspondent of the given error code, if not in ErrorCode return default message
+ */
 const char* Error_getMsg(unsigned errorCode);
 
 #endif //PUISSANCE4_ERROR_H

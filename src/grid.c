@@ -3,8 +3,8 @@
  * @authors Maxime Carlier and Mohammed Pombo
  * @brief the game grid implementation
  * @version 0.1
- * @date 2023-01-03
- * @copyright Copyright (c) 2022
+ * @date 2023-01-04
+ * @copyright Copyright (c) 2023
  */
 
 #include <stdio.h>
@@ -14,14 +14,6 @@
 
 static ErrorCode errorCode=NO_ERROR; //!< last grid error
 
-/**
- * place token in grid
- * @param grid self
- * @param column where the token should be inserted
- * @param val the value of the token (1|2)
- * @return true if success
- * @return false if failure (use Grid_getErrorCode() or Grid_getErrorMsg() for more information)
- */
 static bool placeToken(Grid *grid, const unsigned char column, const unsigned char val) {
     if (!grid) {
         errorCode=NO_SELF_ERROR;
@@ -125,12 +117,6 @@ bool isInWinAlignmentDiagonal(Grid *grid, char column, char row) {
     return nbToken>=4;
 }
 
-/**
- * check if last add of the column is in an alignment of 4 or more tokens
- * @param grid (self)
- * @param column : grid column index
- * @return true if last add in column is in an win alignment else false
- */
 static bool isInWinAlignment(Grid *grid, const unsigned char column) {
     if (!grid) {
         errorCode=NO_SELF_ERROR;
@@ -148,22 +134,12 @@ static bool isInWinAlignment(Grid *grid, const unsigned char column) {
     return isInWinAlignmentVertical(grid,column,row) || isInWinAlignmentHorizontal(grid,(char) column,row) || isInWinAlignmentDiagonal(grid, (char) column,(char) row);
 }
 
-/**
- * destroy grid
- * @param grid (self)
- */
 static void destroy(Grid* grid) {
     if (!grid) return;
     free(grid);
     errorCode=NO_ERROR;
 }
 
-/**
- * reset grid for empty the tab
- * @param grid self
- * @return true if success
- * @return false if failure (use Grid_getErrorCode() or Grid_getErrorMsg() for more information)
- */
 static bool reset(Grid *grid) {
     if (!grid) {
         errorCode=NO_SELF_ERROR;
@@ -178,13 +154,6 @@ static bool reset(Grid *grid) {
     return true;
 }
 
-/**
- * Removes the top token from the specified column in the given grid.
- *
- * @param grid The grid containing the token to be removed.
- * @param column The column from which to remove the top token.
- * @return true if a token was successfully removed, false otherwise.
- */
 bool removeTopToken(struct grid_ *grid, const unsigned char column) {
     if (!grid) {
         errorCode=NO_SELF_ERROR;
@@ -205,11 +174,6 @@ bool removeTopToken(struct grid_ *grid, const unsigned char column) {
     return true;
 }
 
-/**
- * create new grid
- * @return new grid
- * @return NULL if failure (use Grid_getErrorCode() or Grid_getErrorMsg() for more information)
- */
 Grid* Grid_create() {
     Grid *grid = malloc(sizeof(Grid));
     if (!grid) {
@@ -228,25 +192,14 @@ Grid* Grid_create() {
     return grid;
 }
 
-/**
- * get grid error code
- * @return value of error code (use Grid_getErrorMsg() for more information)
- */
-unsigned Grid_getErrorCode() {
+ErrorCode Grid_getErrorCode() {
     return errorCode;
 }
 
-/**
- * get grid error message
- * @return error message based on error code
- */
 const char* Grid_getErrorMsg() {
     return Error_getMsg(errorCode);
 }
 
-/**
- * print error in stderr
- */
 void Grid_printError() {
     fprintf(stderr,"Grid Error : %s (code=%d)\n",Grid_getErrorMsg(),Grid_getErrorCode());
 }

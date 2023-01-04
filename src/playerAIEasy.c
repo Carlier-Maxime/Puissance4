@@ -4,20 +4,14 @@
  * @brief the player ai easy implementation
  * @version 0.1
  * @date 2023-01-04
- * @copyright Copyright (c) 2022
+ * @copyright Copyright (c) 2023
  */
 
 #include <stdlib.h>
-#include <string.h>
 #include "PlayerAIEasy.h"
 #include "PlayerAIBase.h"
 #include "error.h"
 
-/**
- * choose the column to place the token in the desired location
- * @param view used for current game
- * @return index column
- */
 static short choiceColumn(View *view, const unsigned char tokenValue) {
     if (!view) {
         Player_setError(NO_VIEW_ERROR);
@@ -46,11 +40,6 @@ static short choiceColumn(View *view, const unsigned char tokenValue) {
     return (short) (rand()%(6+1));
 }
 
-/**
- * create the easy ai player
- * @param name of the player (not null)
- * @return new easy ai player
- */
 Player *PlayerAIEasy_create(const char* name) {
     Player *p = PlayerAIBase_create(name);
     p->choiceColumn = choiceColumn;

@@ -3,8 +3,8 @@
  * @authors Maxime Carlier and Mohammed Pombo
  * @brief the game grid testing implementation
  * @version 0.1
- * @date 2022-12-17
- * @copyright Copyright (c) 2022
+ * @date 2023-01-04
+ * @copyright Copyright (c) 2023
  */
 
 #include <CUnit/Basic.h>
@@ -113,10 +113,6 @@ static void Test_RemoveTopToken() {
     CU_ASSERT(Grid_getErrorCode()==NO_TOKEN_IN_COLUMN)
 }
 
-/**
- * create the test suite for the grid and add all the necessary tests to it
- * @return grid suite
- */
 CU_Suite *TestGrid_create() {
     CU_Suite *grid = NULL;
     grid = CU_add_suite("Grid", NULL, NULL);
