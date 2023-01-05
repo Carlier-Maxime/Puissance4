@@ -38,11 +38,6 @@ int main(int argc, char* argv[]) {
         View_printError();
         goto quit;
     }
-    if (!v->render(v)) {
-        fprintf(stderr,"Error : view render failed !\n");
-        View_printError();
-        goto quit;
-    }
     p1 = Player_create(v->choicePlayer(v),"player 1");
     if (!p1) {
         fprintf(stderr,"Error : create player 1 failed !\n");
@@ -53,6 +48,11 @@ int main(int argc, char* argv[]) {
     if (!p2) {
         fprintf(stderr,"Error : create player 2 failed !\n");
         Player_printError();
+        goto quit;
+    }
+    if (!v->render(v)) {
+        fprintf(stderr,"Error : view render failed !\n");
+        View_printError();
         goto quit;
     }
     Player *p=p1;
