@@ -17,6 +17,7 @@ static short choiceColumn(View *view, const unsigned char tokenValue) {
         Player_setError(NO_VIEW_ERROR);
         return -1;
     }
+    view->fakeChoiceColumn(view);
     Grid *g = view->grid;
     for (short i = 0; i < GRID_WIDTH; i++) {
         g->placeToken(g,i,tokenValue);

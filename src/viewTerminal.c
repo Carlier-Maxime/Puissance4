@@ -91,6 +91,12 @@ static PlayerType choicePlayer(View *view) {
     else return PLAYER_NONE;
 }
 
+static bool fakeChoiceColumn(struct View_ *view) {
+    printf("choice column...\n");
+    View_setError(NO_ERROR);
+    return true;
+}
+
 static void destroy(View *view) {
     if (!view) {
         View_setError(NO_SELF_ERROR);
@@ -119,6 +125,7 @@ View* ViewTerminal_create(Grid *grid) {
             win,
             invalidColumn,
             choicePlayer,
+            fakeChoiceColumn,
             destroy
     };
     View_setError(NO_ERROR);

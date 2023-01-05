@@ -74,6 +74,14 @@ typedef struct View_{
      */
     PlayerType (*choicePlayer)(struct View_ *view);
 
+
+    /**
+     * fake choice column (util for AI player)
+     * @param view (self)
+     * @return true if success, false if failure
+     */
+    bool (*fakeChoiceColumn)(struct View_ *view);
+
     /**
      * destroy the view
      * @param view self
