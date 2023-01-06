@@ -162,7 +162,6 @@ short PlayerAIBase_choiceColumn(View *view, unsigned char tokenValue, unsigned c
     unsigned char *enemyWinTable = getWinTable(view->grid,(tokenValue)==1 ? 2 : 1);
     for (short i = 0; i < GRID_WIDTH; i++) {
         l[i] = weightColumn(view->grid,i,tokenValue,depth,enemyWinTable);
-        if (l[i]==-1) return -1;
         if (l[i]>l[column]) column=i;
     }
     free(enemyWinTable);
