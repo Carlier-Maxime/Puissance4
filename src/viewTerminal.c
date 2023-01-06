@@ -3,7 +3,7 @@
  * @authors Maxime Carlier and Mohammed Pombo
  * @brief the view terminal implementation
  * @version 0.1
- * @date 2023-01-04
+ * @date 2023-01-06
  * @copyright Copyright (c) 2023
  */
 
@@ -83,12 +83,13 @@ bool invalidColumn(View *view, unsigned char column) {
 }
 
 static PlayerType choicePlayer(View *view) {
-    printf("Choisie le type de joueur (human/ai_easy/ai_normal) : ");
+    printf("Choisie le type de joueur (human/ai_easy/ai_normal/ai_hard) : ");
     char s[16] = "none";
-    while (strcmp(s,"human")!=0 && strcmp(s,"ai_easy")!=0 && strcmp(s,"ai_normal")!=0) scanf("%15s",s);
+    while (strcmp(s,"human")!=0 && strcmp(s,"ai_easy")!=0 && strcmp(s,"ai_normal")!=0 && strcmp(s,"ai_hard")!=0) scanf("%15s",s);
     if (strcmp(s, "human") == 0) return PLAYER_HUMAN;
     else if (strcmp(s, "ai_easy") == 0) return PLAYER_AI_EASY;
     else if (strcmp(s, "ai_normal") == 0) return PLAYER_AI_NORMAL;
+    else if (strcmp(s, "ai_hard") == 0) return PLAYER_AI_HARD;
     else return PLAYER_NONE;
 }
 

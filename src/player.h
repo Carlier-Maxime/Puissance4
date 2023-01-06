@@ -44,7 +44,8 @@ typedef enum PlayerType_ {
     PLAYER_NONE,
     PLAYER_HUMAN,
     PLAYER_AI_EASY,
-    PLAYER_AI_NORMAL
+    PLAYER_AI_NORMAL,
+    PLAYER_AI_HARD
 } PlayerType;
 
 /**
