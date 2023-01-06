@@ -3,7 +3,7 @@
  * @authors Maxime Carlier and Mohammed Pombo
  * @brief the game grid implementation
  * @version 0.1
- * @date 2023-01-04
+ * @date 2023-01-06
  * @copyright Copyright (c) 2023
  */
 
@@ -174,6 +174,17 @@ bool removeTopToken(struct grid_ *grid, const unsigned char column) {
     return true;
 }
 
+static bool isMatchNULL(struct grid_ *grid) {
+    if (!grid) {
+        errorCode=NO_SELF_ERROR;
+        return false;
+    }
+    for (unsigned char i=0; i<GRID_WIDTH; i++) {
+        if (!grid->tab[0][i]) return false;
+    }
+    return true;
+}
+
 Grid* Grid_create() {
     Grid *grid = malloc(sizeof(Grid));
     if (!grid) {
@@ -186,7 +197,8 @@ Grid* Grid_create() {
             placeToken,
             isInWinAlignment,
             reset,
-            removeTopToken
+            removeTopToken,
+            isMatchNULL
     };
     errorCode=NO_ERROR;
     return grid;

@@ -3,7 +3,7 @@
  * @authors Maxime Carlier and Mohammed Pombo
  * @brief the game grid
  * @version 0.1
- * @date 2023-01-04
+ * @date 2023-01-06
  * @copyright Copyright (c) 2023
  */
 
@@ -93,6 +93,13 @@ typedef struct grid_{
      * - NO_ERROR
      */
     bool (*removeTopToken)(struct grid_ *grid, const unsigned char column);
+
+    /**
+     * check if is match NULL
+     * @param grid (self)
+     * @return true if is match NULL else false
+     */
+    bool (*isMatchNULL)(struct grid_ *grid);
 } Grid;
 
 /**

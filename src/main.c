@@ -3,7 +3,7 @@
  * @authors Maxime Carlier and Mohammed Pombo
  * @brief the main of program of Puissance 4
  * @version 0.1
- * @date 2023-01-04
+ * @date 2023-01-06
  * @copyright Copyright (c) 2023
  */
 
@@ -57,7 +57,7 @@ int main(int argc, char* argv[]) {
     }
     Player *p=p1;
     short column=0;
-    while (!g->isInWinAlignment(g,column)) {
+    while (!g->isInWinAlignment(g,column) && !g->isMatchNULL(g)) {
         if (!v->showPlayer(v,p)) {
             fprintf(stderr,"Error : view show player failed !\n");
             View_printError();
@@ -94,10 +94,12 @@ int main(int argc, char* argv[]) {
     }
     if (p==p1) p=p2;
     else p=p1;
-    if (!v->win(v,p)) {
-        fprintf(stderr,"Error : view win failed !\n");
-        View_printError();
-        goto quit;
+    if (g->isInWinAlignment(g,column)) {
+        if (!v->win(v,p)) {
+            fprintf(stderr,"Error : view win failed !\n");
+            View_printError();
+            goto quit;
+        }
     }
     status=EXIT_SUCCESS;
 quit:
