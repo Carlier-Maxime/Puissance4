@@ -64,10 +64,13 @@ Player *PlayerAIBase_create(const char* name) {
  * @return win table, ex : [0,1,0,0,0,1,0,2] (GRID_WIDTH=7)
  */
 unsigned char* getWinTable(Grid *grid, unsigned char tokenValue) {
-    unsigned char *t = malloc(sizeof(unsigned char)*GRID_WIDTH);
+    unsigned char *t = malloc(sizeof(unsigned char)*(GRID_WIDTH+1));
     t[GRID_WIDTH]=0;
     for (unsigned char i = 0; i < GRID_WIDTH; i++) {
-        grid->placeToken(grid,i,tokenValue);
+        if (!grid->placeToken(grid,i,tokenValue)) {
+            t[i]=0;
+            continue;
+        }
         t[i]=grid->isInWinAlignment(grid,i);
         if (t[i]) t[GRID_WIDTH]++;
         grid->removeTopToken(grid,i);
@@ -84,7 +87,7 @@ unsigned char* getWinTable(Grid *grid, unsigned char tokenValue) {
  * @param enemyWinTable : a array boolean contains true in the index column win of enemy and contains number of win in index=GRID_WIDTH
  * @return win weight of each column
  */
-double weightColumn(Grid *grid, unsigned char column, unsigned char tokenValue, unsigned char depth, const unsigned char enemyWinTable[GRID_WIDTH]) {
+double weightColumn(Grid *grid, unsigned char column, unsigned char tokenValue, unsigned char depth, const unsigned char *enemyWinTable) {
     Player_setError(NO_ERROR);
     if (!grid) {
         Player_setError(NO_GRID_ERROR);
@@ -121,6 +124,7 @@ double weightColumn(Grid *grid, unsigned char column, unsigned char tokenValue, 
             grid->removeTopToken(grid,column);
             return 1;
         }
+        grid->removeTopToken(grid,column);
     }
     double s=0, s2;
     unsigned char div=0, div2;

@@ -181,7 +181,7 @@ Grid* Grid_create() {
         return NULL;
     }
     *grid = (Grid) {
-            {},
+            {0},
             destroy,
             placeToken,
             isInWinAlignment,
