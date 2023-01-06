@@ -83,11 +83,12 @@ bool invalidColumn(View *view, unsigned char column) {
 }
 
 static PlayerType choicePlayer(View *view) {
-    printf("Choisie le type de joueur (human/ai_easy) : ");
+    printf("Choisie le type de joueur (human/ai_easy/ai_normal) : ");
     char s[16] = "none";
-    while (strcmp(s,"human")!=0 && strcmp(s,"ai_easy")!=0) scanf("%15s",s);
+    while (strcmp(s,"human")!=0 && strcmp(s,"ai_easy")!=0 && strcmp(s,"ai_normal")!=0) scanf("%15s",s);
     if (strcmp(s, "human") == 0) return PLAYER_HUMAN;
     else if (strcmp(s, "ai_easy") == 0) return PLAYER_AI_EASY;
+    else if (strcmp(s, "ai_normal") == 0) return PLAYER_AI_NORMAL;
     else return PLAYER_NONE;
 }
 

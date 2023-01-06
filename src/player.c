@@ -11,6 +11,7 @@
 #include "player.h"
 #include "playerHuman.h"
 #include "playerAIEasy.h"
+#include "playerAINormal.h"
 #include "error.h"
 
 static ErrorCode errorCode; //!< the player error code
@@ -34,9 +35,10 @@ void Player_printError() {
 Player *Player_create(PlayerType type, const char *name) {
     errorCode=NO_ERROR;
     switch (type) {
+        case PLAYER_NONE: return NULL;
         case PLAYER_HUMAN: return PlayerHuman_create(name);
         case PLAYER_AI_EASY: return PlayerAIEasy_create(name);
-        case PLAYER_NONE: return NULL;
+        case PLAYER_AI_NORMAL: return PlayerAINormal_create(name);
         default:
             errorCode=UNKNOWN_TYPE;
             return NULL;
