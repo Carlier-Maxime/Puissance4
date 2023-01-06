@@ -8,6 +8,8 @@
  */
 
 #include <stdio.h>
+#include "viewTerminal.h"
+#include "viewSDL.h"
 #include "error.h"
 
 static ErrorCode errorCode; //!< the error code of view
@@ -26,4 +28,15 @@ void View_setError(ErrorCode code) {
 
 void View_printError() {
     fprintf(stderr,"View Error : %s\n",View_getErrorMsg());
+}
+
+View *View_create(ViewType type, Grid *grid) {
+    switch (type) {
+        case VIEW_NONE: return NULL;
+        case VIEW_TERMINAL: return ViewTerminal_create(grid);
+        case VIEW_SDL: return ViewSDL_create(grid);
+        default:
+            errorCode=UNKNOWN_TYPE;
+            return NULL;
+    }
 }

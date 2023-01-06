@@ -10,9 +10,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "grid.h"
-#include "viewTerminal.h"
+#include "view.h"
 #include "player.h"
 #include "error.h"
+#include "string.h"
 
 /**
  * main function (entry of program)
@@ -32,7 +33,11 @@ int main(int argc, char* argv[]) {
         Grid_printError();
         goto quit;
     }
-    v = ViewTerminal_create(g);
+    if (argc>1) {
+        if (strcmp("terminal",argv[1])==0) v=View_create(VIEW_TERMINAL,g);
+        else if (strcmp("sdl",argv[1])==0) v=View_create(VIEW_SDL,g);
+        else printf("Error : the parameter is unknown ! choice 'terminal' or 'sdl' (default:sdl)\n");
+    } else v = View_create(VIEW_SDL,g);
     if (!v) {
         fprintf(stderr,"Error : create view terminal failed !\n");
         View_printError();

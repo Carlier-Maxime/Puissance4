@@ -90,6 +90,15 @@ typedef struct View_{
 } View;
 
 /**
+ * @enum ViewType enumeration
+ */
+typedef enum ViewType_ {
+    VIEW_NONE,
+    VIEW_TERMINAL,
+    VIEW_SDL
+} ViewType;
+
+/**
  * get error code
  * @return the value of error code (use View_getErrorMsg() for more information)
  */
@@ -114,5 +123,12 @@ void View_setError(ErrorCode code);
  * print view error code in the stderr
  */
 void View_printError();
+
+/**
+ * create view with type specified
+ * @param type of view
+ * @return new view with type specified
+ */
+View *View_create(ViewType type, Grid *grid);
 
 #endif //PUISSANCE4_VIEW_H
