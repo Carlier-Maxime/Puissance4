@@ -40,7 +40,7 @@ static bool render(View *view) {
     SDL_Rect rect = {0,0,VIEW_WIDTH/GRID_WIDTH,VIEW_HEIGHT/(GRID_HEIGHT+1)};
     for (unsigned char i=0; i<GRID_HEIGHT; i++) {
         rect.x=0;
-        for (unsigned char j=0; j<GRID_HEIGHT; j++) {
+        for (unsigned char j=0; j<GRID_WIDTH; j++) {
             if (!g->tab[i][j]) {
                 rect.x+=rect.w;
                 continue;
