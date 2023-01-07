@@ -27,14 +27,17 @@ static bool render(View *view) {
         return false;
     }
     ViewSDL *data = view->data;
-    SDL_SetRenderTarget(data->renderer,data->textureGrid);
+    if (SDL_SetRenderTarget(data->renderer,data->textureGrid)!=0) {
+        View_setError(SDL_ERROR);
+        return false;
+    }
     if (SDL_SetRenderDrawColor(data->renderer, 0, 0, 0, 255)!=0 ||
         SDL_RenderClear(data->renderer)!=0) {
         View_setError(SDL_ERROR);
         return false;
     }
     Grid *g = view->grid;
-    SDL_Rect rect = {0,VIEW_HEIGHT/(GRID_HEIGHT+1),VIEW_WIDTH/GRID_WIDTH,VIEW_HEIGHT/(GRID_HEIGHT+1)};
+    SDL_Rect rect = {0,0,VIEW_WIDTH/GRID_WIDTH,VIEW_HEIGHT/(GRID_HEIGHT+1)};
     for (unsigned char i=0; i<GRID_HEIGHT; i++) {
         rect.x=0;
         for (unsigned char j=0; j<GRID_HEIGHT; j++) {
@@ -51,9 +54,13 @@ static bool render(View *view) {
         }
         rect.y+=rect.h;
     }
-    SDL_SetRenderTarget(data->renderer,NULL);
-    SDL_Rect dst = {0,GRID_HEIGHT,GRID_WIDTH,(GRID_HEIGHT/(GRID_HEIGHT+1))*6};
-    if (SDL_RenderCopy(data->renderer,data->textureGrid,NULL,&dst) != 0) {
+    if (SDL_SetRenderTarget(data->renderer,NULL)!=0) {
+        View_setError(SDL_ERROR);
+        return -1;
+    }
+    SDL_Rect src = {0,0,VIEW_WIDTH,(VIEW_HEIGHT/(GRID_HEIGHT+1))*6};
+    SDL_Rect dst = {0,VIEW_HEIGHT/(GRID_HEIGHT+1),VIEW_WIDTH,(VIEW_HEIGHT/(GRID_HEIGHT+1))*6};
+    if (SDL_RenderCopy(data->renderer,data->textureGrid,&src,&dst) != 0) {
         View_setError(SDL_ERROR);
         return false;
     }
@@ -63,23 +70,37 @@ static bool render(View *view) {
 }
 
 static short choiceColumn(View *view) {
-    //TODO
-    return -1;
+    if (!view) {
+        View_setError(NO_SELF_ERROR);
+        return -1;
+    }
+    // ViewSDL *data = view->data;
+    SDL_Event  *event = malloc(sizeof(SDL_Event));
+    while (1) {
+        SDL_PollEvent(event);
+        if (event->type == SDL_MOUSEBUTTONDOWN) {
+            int x,y;
+            SDL_GetMouseState(&x,&y);
+            for (unsigned char i=0; i<GRID_WIDTH; i++) {
+                if (x>(VIEW_WIDTH/GRID_WIDTH)*i && x<(VIEW_WIDTH/GRID_WIDTH)*(i+1)) return i;
+            }
+        }
+    }
 }
 
 static bool showPlayer(View *view, Player *player) {
     //TODO
-    return false;
+    return true;
 }
 
 static bool win(View *view, Player *player) {
     //TODO
-    return false;
+    return true;
 }
 
 static bool invalidColumn(View *view, unsigned char column) {
     //TODO
-    return false;
+    return true;
 }
 
 static PlayerType choicePlayer(View *view) {
