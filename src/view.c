@@ -3,11 +3,12 @@
  * @authors Maxime Carlier and Mohammed Pombo
  * @brief the view implementation
  * @version 0.1
- * @date 2023-01-04
+ * @date 2023-01-07
  * @copyright Copyright (c) 2023
  */
 
 #include <stdio.h>
+#include <SDL2/SDL.h>
 #include "viewTerminal.h"
 #include "viewSDL.h"
 #include "error.h"
@@ -28,6 +29,7 @@ void View_setError(ErrorCode code) {
 
 void View_printError() {
     fprintf(stderr,"View Error : %s\n",View_getErrorMsg());
+    if (errorCode==SDL_ERROR) fprintf(stderr,"SDL Error : %s\n",SDL_GetError());
 }
 
 View *View_create(ViewType type, Grid *grid) {

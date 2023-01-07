@@ -17,6 +17,8 @@
 typedef struct ViewSDL_ {
     SDL_Window *window;
     SDL_Renderer *renderer;
+    SDL_Texture *textureGrid;
+    SDL_Texture *textureChoiceColumn;
 } ViewSDL;
 
 static bool render(View *view) {
@@ -25,6 +27,7 @@ static bool render(View *view) {
         return false;
     }
     ViewSDL *data = view->data;
+    SDL_SetRenderTarget(data->renderer,data->textureGrid);
     if (SDL_SetRenderDrawColor(data->renderer, 0, 0, 0, 255)!=0 ||
         SDL_RenderClear(data->renderer)!=0) {
         View_setError(SDL_ERROR);
@@ -47,6 +50,12 @@ static bool render(View *view) {
             rect.x+=rect.w;
         }
         rect.y+=rect.h;
+    }
+    SDL_SetRenderTarget(data->renderer,NULL);
+    SDL_Rect dst = {0,GRID_HEIGHT,GRID_WIDTH,(GRID_HEIGHT/(GRID_HEIGHT+1))*6};
+    if (SDL_RenderCopy(data->renderer,data->textureGrid,NULL,&dst) != 0) {
+        View_setError(SDL_ERROR);
+        return false;
     }
     View_setError(NO_ERROR);
     SDL_RenderPresent(data->renderer);
@@ -127,6 +136,9 @@ static void destroy(View *view) {
         return;
     }
     ViewSDL *data = view->data;
+    SDL_DestroyTexture(data->textureChoiceColumn);
+    SDL_DestroyTexture(data->textureGrid);
+    SDL_DestroyRenderer(data->renderer);
     SDL_DestroyWindow(data->window);
     SDL_Quit();
     free(data);
@@ -150,21 +162,48 @@ View* ViewSDL_create(Grid *grid) {
     ViewSDL *data = malloc(sizeof(ViewSDL));
     if (!data) {
         View_setError(NO_MEMORY_ERROR);
+        free(v);
         return NULL;
     }
     SDL_Window *window = SDL_CreateWindow("Puissance 4",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,VIEW_WIDTH,VIEW_HEIGHT,0);
     if (!window) {
         View_setError(SDL_ERROR);
+        free(data);
+        free(v);
         return NULL;
     }
     SDL_Renderer *renderer = SDL_CreateRenderer(window,-1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     if (!renderer) {
+        SDL_DestroyWindow(window);
+        free(data);
+        free(v);
+        View_setError(SDL_ERROR);
+        return NULL;
+    }
+    SDL_Texture *textureGrid = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGB888, SDL_TEXTUREACCESS_TARGET, VIEW_WIDTH,(VIEW_HEIGHT/(GRID_HEIGHT+1))*6);
+    if (!textureGrid) {
+        SDL_DestroyRenderer(renderer);
+        SDL_DestroyWindow(window);
+        free(data);
+        free(v);
+        View_setError(SDL_ERROR);
+        return NULL;
+    }
+    SDL_Texture *textureChoiceColumn = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGB888, SDL_TEXTUREACCESS_TARGET, VIEW_WIDTH,VIEW_HEIGHT/(GRID_HEIGHT+1));
+    if (!textureChoiceColumn) {
+        SDL_DestroyTexture(textureGrid);
+        SDL_DestroyRenderer(renderer);
+        SDL_DestroyWindow(window);
+        free(data);
+        free(v);
         View_setError(SDL_ERROR);
         return NULL;
     }
     *data = (ViewSDL) {
         window,
-        renderer
+        renderer,
+        textureGrid,
+        textureChoiceColumn
     };
     *v = (View) {
             grid,

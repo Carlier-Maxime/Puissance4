@@ -3,7 +3,7 @@
  * @authors Maxime Carlier and Mohammed Pombo
  * @brief the main of program of Puissance 4
  * @version 0.1
- * @date 2023-01-06
+ * @date 2023-01-07
  * @copyright Copyright (c) 2023
  */
 
@@ -39,7 +39,7 @@ int main(int argc, char* argv[]) {
         else printf("Error : the parameter is unknown ! choice 'terminal' or 'sdl' (default:sdl)\n");
     } else v = View_create(VIEW_SDL,g);
     if (!v) {
-        fprintf(stderr,"Error : create view terminal failed !\n");
+        fprintf(stderr,"Error : create view failed !\n");
         View_printError();
         goto quit;
     }
