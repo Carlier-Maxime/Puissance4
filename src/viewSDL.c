@@ -113,12 +113,31 @@ static short choiceColumn(View *view) {
 }
 
 static bool showPlayer(View *view, Player *player) {
-    //TODO
+    if (!view) {
+        View_setError(NO_SELF_ERROR);
+        return false;
+    }
+    if (!player) {
+        View_setError(NO_PLAYER_ERROR);
+        return false;
+    }
+    ViewSDL *data = view->data;
+    SDL_SetWindowTitle(data->window, player->name);
     return true;
 }
 
 static bool win(View *view, Player *player) {
-    //TODO
+    if (!view) {
+        View_setError(NO_SELF_ERROR);
+        return false;
+    }
+    if (!player) {
+        View_setError(NO_PLAYER_ERROR);
+        return false;
+    }
+    ViewSDL *data = view->data;
+    SDL_SetWindowTitle(data->window, "Puissance 4 - Bravo le dernier joueur à avoir poser un pion à gagner !");
+    SDL_Delay(1500);
     return true;
 }
 
