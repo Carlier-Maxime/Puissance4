@@ -20,8 +20,37 @@ typedef struct ViewSDL_ {
 } ViewSDL;
 
 static bool render(View *view) {
-    //TODO
-    return false;
+    if (!view) {
+        View_setError(NO_SELF_ERROR);
+        return false;
+    }
+    ViewSDL *data = view->data;
+    if (SDL_SetRenderDrawColor(data->renderer, 0, 0, 0, 255)!=0 ||
+        SDL_RenderClear(data->renderer)!=0) {
+        View_setError(SDL_ERROR);
+        return false;
+    }
+    Grid *g = view->grid;
+    SDL_Rect rect = {0,VIEW_HEIGHT/(GRID_HEIGHT+1),VIEW_WIDTH/GRID_WIDTH,VIEW_HEIGHT/(GRID_HEIGHT+1)};
+    for (unsigned char i=0; i<GRID_HEIGHT; i++) {
+        rect.x=0;
+        for (unsigned char j=0; j<GRID_HEIGHT; j++) {
+            if (!g->tab[i][j]) {
+                rect.x+=rect.w;
+                continue;
+            }
+            if (SDL_SetRenderDrawColor(data->renderer, 255, (g->tab[i][j]==1) ? 0 : 255, 0, 255) != 0 ||
+                SDL_RenderFillRect(data->renderer, &rect) != 0) {
+                View_setError(SDL_ERROR);
+                return false;
+            }
+            rect.x+=rect.w;
+        }
+        rect.y+=rect.h;
+    }
+    View_setError(NO_ERROR);
+    SDL_RenderPresent(data->renderer);
+    return true;
 }
 
 static short choiceColumn(View *view) {
