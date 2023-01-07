@@ -69,6 +69,23 @@ static bool render(View *view) {
     return true;
 }
 
+void indicateColumn(ViewSDL *data, unsigned char column, bool isInvalid) {
+    SDL_Rect dst = {0,0,VIEW_WIDTH,VIEW_HEIGHT/(GRID_HEIGHT+1)};
+    SDL_SetRenderTarget(data->renderer, data->textureChoiceColumn);
+    if (SDL_SetRenderDrawColor(data->renderer, 0, 0, 0, 255)!=0 ||
+        SDL_RenderClear(data->renderer)!=0) {
+        View_setError(SDL_ERROR);
+        return;
+    }
+    SDL_Rect rect = {(VIEW_WIDTH/GRID_WIDTH)*column,0,(VIEW_WIDTH/GRID_WIDTH)/2, (VIEW_HEIGHT/(GRID_HEIGHT+1))};
+    rect.x+=rect.w/2;
+    SDL_SetRenderDrawColor(data->renderer, isInvalid ? 128 : 255, isInvalid ? 128 : 255, isInvalid ? 128 : 255, 255);
+    SDL_RenderFillRect(data->renderer,&rect);
+    SDL_SetRenderTarget(data->renderer, NULL);
+    SDL_RenderCopy(data->renderer,data->textureChoiceColumn,NULL,&dst);
+    SDL_RenderPresent(data->renderer);
+}
+
 static short choiceColumn(View *view) {
     if (!view) {
         View_setError(NO_SELF_ERROR);
@@ -76,7 +93,6 @@ static short choiceColumn(View *view) {
     }
     ViewSDL *data = view->data;
     SDL_Event *event = malloc(sizeof(SDL_Event));
-    SDL_Rect dst = {0,0,VIEW_WIDTH,VIEW_HEIGHT/(GRID_HEIGHT+1)};
     unsigned char column=0;
     while (1) {
         SDL_PollEvent(event);
@@ -86,19 +102,7 @@ static short choiceColumn(View *view) {
             for (unsigned char i=0; i<GRID_WIDTH; i++) {
                 if (x>(VIEW_WIDTH/GRID_WIDTH)*i && x<(VIEW_WIDTH/GRID_WIDTH)*(i+1)) {
                     if (i!=column) {
-                        SDL_SetRenderTarget(data->renderer, data->textureChoiceColumn);
-                        if (SDL_SetRenderDrawColor(data->renderer, 0, 0, 0, 255)!=0 ||
-                            SDL_RenderClear(data->renderer)!=0) {
-                            View_setError(SDL_ERROR);
-                            return false;
-                        }
-                        SDL_Rect rect = {(VIEW_WIDTH/GRID_WIDTH)*i,0,(VIEW_WIDTH/GRID_WIDTH)/2, (VIEW_HEIGHT/(GRID_HEIGHT+1))};
-                        rect.x+=rect.w/2;
-                        SDL_SetRenderDrawColor(data->renderer, 255, 255, 255, 255);
-                        SDL_RenderFillRect(data->renderer,&rect);
-                        SDL_SetRenderTarget(data->renderer, NULL);
-                        SDL_RenderCopy(data->renderer,data->textureChoiceColumn,NULL,&dst);
-                        SDL_RenderPresent(data->renderer);
+                        indicateColumn(data,i,view->grid->tab[0][i]!=0);
                         column=i;
                     }
                     if (event->type == SDL_MOUSEBUTTONDOWN) return column;
@@ -119,8 +123,7 @@ static bool win(View *view, Player *player) {
 }
 
 static bool invalidColumn(View *view, unsigned char column) {
-    //TODO
-    return true;
+    return true; // not action because display in real time in choice column
 }
 
 static PlayerType choicePlayer(View *view) {
@@ -167,8 +170,13 @@ static PlayerType choicePlayer(View *view) {
 }
 
 static bool fakeChoiceColumn(View *view) {
-    //TODO
-    return false;
+    if (!view) {
+        View_setError(NO_SELF_ERROR);
+        return false;
+    }
+    unsigned char column = rand()%6;
+    indicateColumn(view->data,column,view->grid->tab[0][column]!=0);
+    return true;
 }
 
 static void destroy(View *view) {
