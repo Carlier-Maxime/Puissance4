@@ -50,53 +50,25 @@ static PlayerType choicePlayer(View *view) {
         return PLAYER_NONE;
     }
     ViewSDL *data = view->data;
-    if (SDL_SetRenderDrawColor(data->renderer, 0, 0, 0, 255)!=0) {
+    if (SDL_SetRenderDrawColor(data->renderer, 0, 0, 0, 255)!=0 ||
+        SDL_RenderClear(data->renderer)!=0) {
         View_setError(SDL_ERROR);
         return PLAYER_NONE;
     }
-    if (SDL_RenderClear(data->renderer)!=0) {
-        View_setError(SDL_ERROR);
-        return PLAYER_NONE;
+    SDL_Color colors[4] = {{0,255,0,255}, {255,255,0,255}, {255,165,0,255}, {255,0,0,255}};
+    PlayerType playerTypes[4] = {PLAYER_HUMAN,PLAYER_AI_EASY,PLAYER_AI_NORMAL,PLAYER_AI_HARD};
+    SDL_Rect rects[4] = {{VIEW_WIDTH/16,VIEW_HEIGHT/2,VIEW_HEIGHT/6,VIEW_HEIGHT/6}};
+    rects[0].y -= rects[0].h/2;
+    for (unsigned char i=1; i < 4; i++) {
+        rects[i] = rects[i - 1];
+        rects[i].x += rects[i].w + rects[0].x;
     }
-    if (SDL_SetRenderDrawColor(data->renderer, 0, 255, 0, 255)!=0) {
-        View_setError(SDL_ERROR);
-        return PLAYER_NONE;
-    }
-    SDL_Rect rectHuman = {VIEW_WIDTH/16,VIEW_HEIGHT/2,VIEW_HEIGHT/6,VIEW_HEIGHT/6};
-    rectHuman.y -= rectHuman.h/2;
-    if (SDL_RenderFillRect(data->renderer,&rectHuman)!=0) {
-        View_setError(SDL_ERROR);
-        return PLAYER_NONE;
-    }
-    if (SDL_SetRenderDrawColor(data->renderer, 255, 255, 0, 255)!=0) {
-        View_setError(SDL_ERROR);
-        return PLAYER_NONE;
-    }
-    SDL_Rect rectAIEasy = rectHuman;
-    rectAIEasy.x += rectAIEasy.w + rectHuman.x;
-    if (SDL_RenderFillRect(data->renderer,&rectAIEasy)!=0) {
-        View_setError(SDL_ERROR);
-        return PLAYER_NONE;
-    }
-    if (SDL_SetRenderDrawColor(data->renderer, 255, 165, 0, 255)!=0) {
-        View_setError(SDL_ERROR);
-        return PLAYER_NONE;
-    }
-    SDL_Rect rectAINormal = rectAIEasy;
-    rectAINormal.x += rectAINormal.w + rectHuman.x;
-    if (SDL_RenderFillRect(data->renderer,&rectAINormal)!=0) {
-        View_setError(SDL_ERROR);
-        return PLAYER_NONE;
-    }
-    if (SDL_SetRenderDrawColor(data->renderer, 255, 0, 0, 255)!=0) {
-        View_setError(SDL_ERROR);
-        return PLAYER_NONE;
-    }
-    SDL_Rect rectAIHard = rectAINormal;
-    rectAIHard.x += rectAIHard.w + rectHuman.x;
-    if (SDL_RenderFillRect(data->renderer,&rectAIHard)!=0) {
-        View_setError(SDL_ERROR);
-        return PLAYER_NONE;
+    for (unsigned char i = 0; i < 4; i++) {
+        if (SDL_SetRenderDrawColor(data->renderer, colors[i].r, colors[i].g, colors[i].b, colors[i].a) != 0 ||
+            SDL_RenderFillRect(data->renderer, &rects[i]) != 0) {
+            View_setError(SDL_ERROR);
+            return PLAYER_NONE;
+        }
     }
     SDL_RenderPresent(data->renderer);
     SDL_Event *event = malloc(sizeof(SDL_Event));
@@ -105,21 +77,11 @@ static PlayerType choicePlayer(View *view) {
         if (event->type == SDL_MOUSEBUTTONDOWN) {
             int x,y;
             SDL_GetMouseState(&x,&y);
-            if (x>rectHuman.x && x<(rectHuman.x+rectHuman.w) && y>rectHuman.y && y<(rectHuman.y+rectHuman.h)) {
-                free(event);
-                return PLAYER_HUMAN;
-            }
-            if (x>rectAIEasy.x && x<(rectAIEasy.x+rectAIEasy.w) && y>rectAIEasy.y && y<(rectAIEasy.y+rectAIEasy.h)) {
-                free(event);
-                return PLAYER_AI_EASY;
-            }
-            if (x>rectAINormal.x && x<(rectAINormal.x+rectAINormal.w) && y>rectAINormal.y && y<(rectAINormal.y+rectAINormal.h)) {
-                free(event);
-                return PLAYER_AI_NORMAL;
-            }
-            if (x>rectAIHard.x && x<(rectAIHard.x+rectAIHard.w) && y>rectAIHard.y && y<(rectAIHard.y+rectAIHard.h)) {
-                free(event);
-                return PLAYER_AI_HARD;
+            for (int i = 0; i < 4; i++) {
+                if (x > rects[i].x && x < (rects[i].x + rects[i].w) && y > rects[i].y && y < (rects[i].y + rects[i].h)) {
+                    free(event);
+                    return playerTypes[i];
+                }
             }
         }
     }
