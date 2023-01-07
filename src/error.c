@@ -23,6 +23,7 @@ const char* Error_getMsg(unsigned errorCode) {
         case NO_PLAYER_ERROR: return "the player is null";
         case NO_TOKEN_IN_COLUMN: return "the column no contain a token";
         case UNKNOWN_TYPE: return "the type is unknown";
+        case SDL_ERROR: return "SDL Error use SDL_GetError() for more information (SDL2/SDL.h)";
         default: return "an error has occurred, this error has no description.";
     }
 }

@@ -14,7 +14,7 @@ OBJS_TEST = $(ood)/test/grid.o $(ood)/test/viewTerminal.o $(ood)/test/player.o $
 .PHONY: build test clean mrproper
 
 build : $(ood)/src/main.o $(OBJS_SRC)
-	$(CC) $^ -o $(output)/puissance4
+	$(CC) $^ -o $(output)/puissance4 -lSDL2
 
 test : $(ood)/test/main.o $(OBJS_TEST) $(OBJS_SRC)
 	$(CC) $^ -o $(output)/test -lcunit

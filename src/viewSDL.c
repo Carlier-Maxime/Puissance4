@@ -11,9 +11,12 @@
 #include <stdlib.h>
 #include "viewSDL.h"
 
-typedef struct viewSDL_ {
+#define VIEW_HEIGHT 700
+#define VIEW_WIDTH 700
+
+typedef struct ViewSDL_ {
     SDL_Window *w;
-} viewSDL;
+} ViewSDL;
 
 static bool render(View *view) {
     //TODO
@@ -51,7 +54,15 @@ static bool fakeChoiceColumn(View *view) {
 }
 
 static void destroy(View *view) {
-    //TODO
+    if (!view) {
+        View_setError(NO_SELF_ERROR);
+        return;
+    }
+    ViewSDL *data = view->data;
+    SDL_DestroyWindow(data->w);
+    SDL_Quit();
+    free(data);
+    free(view);
 }
 
 View* ViewSDL_create(Grid *grid) {
@@ -64,9 +75,26 @@ View* ViewSDL_create(Grid *grid) {
         View_setError(NO_MEMORY_ERROR);
         return NULL;
     }
+    if (SDL_Init(SDL_INIT_VIDEO)!=0) {
+        View_setError(SDL_ERROR);
+        return NULL;
+    }
+    ViewSDL *data = malloc(sizeof(ViewSDL));
+    if (!data) {
+        View_setError(NO_MEMORY_ERROR);
+        return NULL;
+    }
+    SDL_Window *w = SDL_CreateWindow("Puissance 4",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,VIEW_WIDTH,VIEW_HEIGHT,0);
+    if (!w) {
+        View_setError(SDL_ERROR);
+        return NULL;
+    }
+    *data = (ViewSDL) {
+        w
+    };
     *v = (View) {
             grid,
-            NULL,
+            data,
             render,
             choiceColumn,
             showPlayer,

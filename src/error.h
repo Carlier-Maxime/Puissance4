@@ -26,7 +26,8 @@ typedef enum {
     NO_VIEW_ERROR, //!< the view is null
     NO_PLAYER_ERROR, //!< the player is null
     NO_TOKEN_IN_COLUMN, //!< the column no contain a token
-    UNKNOWN_TYPE //!< the type is unknown
+    UNKNOWN_TYPE, //!< the type is unknown
+    SDL_ERROR //!< SDL Error use SDL_GetError() for more information (SDL2/SDL.h)
 } ErrorCode;
 
 /**
