@@ -74,15 +74,35 @@ static short choiceColumn(View *view) {
         View_setError(NO_SELF_ERROR);
         return -1;
     }
-    // ViewSDL *data = view->data;
-    SDL_Event  *event = malloc(sizeof(SDL_Event));
+    ViewSDL *data = view->data;
+    SDL_Event *event = malloc(sizeof(SDL_Event));
+    SDL_Rect dst = {0,0,VIEW_WIDTH,VIEW_HEIGHT/(GRID_HEIGHT+1)};
+    unsigned char column=0;
     while (1) {
         SDL_PollEvent(event);
-        if (event->type == SDL_MOUSEBUTTONDOWN) {
+        if (event->type == SDL_MOUSEMOTION || event->type == SDL_MOUSEBUTTONDOWN) {
             int x,y;
             SDL_GetMouseState(&x,&y);
             for (unsigned char i=0; i<GRID_WIDTH; i++) {
-                if (x>(VIEW_WIDTH/GRID_WIDTH)*i && x<(VIEW_WIDTH/GRID_WIDTH)*(i+1)) return i;
+                if (x>(VIEW_WIDTH/GRID_WIDTH)*i && x<(VIEW_WIDTH/GRID_WIDTH)*(i+1)) {
+                    if (i!=column) {
+                        SDL_SetRenderTarget(data->renderer, data->textureChoiceColumn);
+                        if (SDL_SetRenderDrawColor(data->renderer, 0, 0, 0, 255)!=0 ||
+                            SDL_RenderClear(data->renderer)!=0) {
+                            View_setError(SDL_ERROR);
+                            return false;
+                        }
+                        SDL_Rect rect = {(VIEW_WIDTH/GRID_WIDTH)*i,0,(VIEW_WIDTH/GRID_WIDTH)/2, (VIEW_HEIGHT/(GRID_HEIGHT+1))};
+                        rect.x+=rect.w/2;
+                        SDL_SetRenderDrawColor(data->renderer, 255, 255, 255, 255);
+                        SDL_RenderFillRect(data->renderer,&rect);
+                        SDL_SetRenderTarget(data->renderer, NULL);
+                        SDL_RenderCopy(data->renderer,data->textureChoiceColumn,NULL,&dst);
+                        SDL_RenderPresent(data->renderer);
+                        column=i;
+                    }
+                    if (event->type == SDL_MOUSEBUTTONDOWN) return column;
+                }
             }
         }
     }
