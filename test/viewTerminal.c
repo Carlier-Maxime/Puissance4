@@ -33,6 +33,7 @@ static void Test_Render() {
     CU_ASSERT(View_getErrorCode()==NO_ERROR)
 }
 
+#if defined(REQUIRE_USER_INPUT) && REQUIRE_USER_INPUT==1
 /**
  * test choiceColumn
  */
@@ -42,6 +43,7 @@ static void Test_ChoiceColumn() {
     vt->choiceColumn(vt);
     CU_ASSERT(View_getErrorCode()==NO_ERROR)
 }
+#endif
 
 /**
  * test showPlayer

@@ -62,13 +62,13 @@ bool isInWinAlignmentVertical(Grid *grid, const unsigned char column, unsigned c
  * @return true if the index token [row][column] is in an win horizontal alignment else false
  */
 bool isInWinAlignmentHorizontal(Grid *grid, char column, const unsigned char row) {
-    unsigned char nbToken=0, val=grid->tab[row][column];
-    while (column>=0 && grid->tab[row][column]==val) {
+    unsigned char nbToken=0, val=grid->tab[row][(unsigned char) column];
+    while (column>=0 && grid->tab[row][(unsigned char) column]==val) {
         nbToken++;
         column--;
     }
     column=(char)(column+nbToken+1);
-    while (column<GRID_WIDTH && grid->tab[row][column]==val) {
+    while (column<GRID_WIDTH && grid->tab[row][(unsigned char) column]==val) {
         nbToken++;
         column++;
     }
@@ -83,8 +83,8 @@ bool isInWinAlignmentHorizontal(Grid *grid, char column, const unsigned char row
  * @return true if the index token [row][column] is in an win diagonal alignment else false
  */
 bool isInWinAlignmentDiagonal(Grid *grid, char column, char row) {
-    unsigned char nbToken=0, val=grid->tab[row][column];
-    while (row>=0 && column>=0 && grid->tab[row][column]==val) {
+    unsigned char nbToken=0, val=grid->tab[(unsigned char) row][(unsigned char) column];
+    while (row>=0 && column>=0 && grid->tab[(unsigned char) row][(unsigned char) column]==val) {
         nbToken++;
         column--;
         row--;
@@ -92,7 +92,7 @@ bool isInWinAlignmentDiagonal(Grid *grid, char column, char row) {
     row=(char)(row+nbToken+1);
     column=(char)(column+nbToken+1);
     char tmp = 0;
-    while (row<GRID_HEIGHT && column<GRID_WIDTH && grid->tab[row][column]==val) {
+    while (row<GRID_HEIGHT && column<GRID_WIDTH && grid->tab[(unsigned char) row][(unsigned char) column]==val) {
         tmp++;
         column++;
         row++;
@@ -102,14 +102,14 @@ bool isInWinAlignmentDiagonal(Grid *grid, char column, char row) {
     nbToken+=tmp;
     if (nbToken>=4) return true;
     nbToken=0;
-    while (row<GRID_HEIGHT && column>=0 && grid->tab[row][column]==val) {
+    while (row<GRID_HEIGHT && column>=0 && grid->tab[(unsigned char) row][(unsigned char) column]==val) {
         nbToken++;
         column--;
         row++;
     }
     row=(char)(row-(nbToken+1));
     column=(char)(column+nbToken+1);
-    while (row>=0 && column<GRID_WIDTH && grid->tab[row][column]==val) {
+    while (row>=0 && column<GRID_WIDTH && grid->tab[(unsigned char) row][(unsigned char) column]==val) {
         nbToken++;
         column++;
         row--;
@@ -192,7 +192,7 @@ Grid* Grid_create() {
         return NULL;
     }
     *grid = (Grid) {
-            {0},
+            {{0}},
             destroy,
             placeToken,
             isInWinAlignment,

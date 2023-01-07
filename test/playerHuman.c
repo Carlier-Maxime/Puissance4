@@ -9,7 +9,6 @@
 
 #include "playerHuman.h"
 #include "../src/playerHuman.h"
-#include "../src/error.h"
 #include "../src/ViewTerminal.h"
 
 static Player *p=NULL; //!< player for testing
@@ -42,6 +41,7 @@ static void Test_destroy() {
     p=NULL;
 }
 
+#if defined(REQUIRE_USER_INPUT) && REQUIRE_USER_INPUT==1
 /**
  * test choice column
  */
@@ -57,6 +57,7 @@ static void Test_choiceColumn() {
     v->destroy(v);
     g->destroy(g);
 }
+#endif
 
 /**
  * clean test player

@@ -17,7 +17,7 @@ build : $(ood)/src/main.o $(OBJS_SRC)
 	$(CC) $^ -o $(output)/puissance4 -lSDL2
 
 test : $(ood)/test/main.o $(OBJS_TEST) $(OBJS_SRC)
-	$(CC) $^ -o $(output)/test -lcunit
+	$(CC) $^ -o $(output)/test -lcunit -lSDL2
 
 $(ood)/src/%.o : src/%.c
 	@mkdir -p $(ood)/src
