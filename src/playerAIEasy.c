@@ -9,8 +9,8 @@
 
 #include <stdlib.h>
 #include <unistd.h>
-#include "PlayerAIEasy.h"
-#include "PlayerAIBase.h"
+#include "playerAIEasy.h"
+#include "playerAIBase.h"
 #include "error.h"
 
 static short choiceColumn(View *view, const unsigned char tokenValue) {
