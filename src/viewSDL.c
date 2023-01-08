@@ -158,7 +158,23 @@ static PlayerType choicePlayer(View *view) {
         View_setError(SDL_ERROR);
         return PLAYER_NONE;
     }
-    SDL_Color colors[4] = {{0,255,0,255}, {255,255,0,255}, {255,165,0,255}, {255,0,0,255}};
+    SDL_Texture *textures[4];
+    SDL_Surface *surface = SDL_LoadBMP("human.bmp");
+    textures[0] = SDL_CreateTextureFromSurface(data->renderer,surface);
+    SDL_FreeSurface(surface);
+    surface = SDL_LoadBMP("ai_easy.bmp");
+    textures[1] = SDL_CreateTextureFromSurface(data->renderer,surface);
+    SDL_FreeSurface(surface);
+    surface = SDL_LoadBMP("ai_normal.bmp");
+    textures[2] = SDL_CreateTextureFromSurface(data->renderer,surface);
+    SDL_FreeSurface(surface);
+    surface = SDL_LoadBMP("ai_hard.bmp");
+    textures[3] = SDL_CreateTextureFromSurface(data->renderer,surface);
+    SDL_FreeSurface(surface);
+    if (!textures[0] || !textures[1] || !textures[2] || !textures[3]) {
+        View_setError(SDL_ERROR);
+        return PLAYER_NONE;
+    }
     PlayerType playerTypes[4] = {PLAYER_HUMAN,PLAYER_AI_EASY,PLAYER_AI_NORMAL,PLAYER_AI_HARD};
     SDL_Rect rects[4] = {{VIEW_WIDTH/16,VIEW_HEIGHT/2,VIEW_HEIGHT/6,VIEW_HEIGHT/6}};
     rects[0].y -= rects[0].h/2;
@@ -167,13 +183,10 @@ static PlayerType choicePlayer(View *view) {
         rects[i].x += rects[i].w + rects[0].x;
     }
     for (unsigned char i = 0; i < 4; i++) {
-        if (SDL_SetRenderDrawColor(data->renderer, colors[i].r, colors[i].g, colors[i].b, colors[i].a) != 0 ||
-            SDL_RenderFillRect(data->renderer, &rects[i]) != 0) {
-            View_setError(SDL_ERROR);
-            return PLAYER_NONE;
-        }
+        SDL_RenderCopy(data->renderer,textures[i],NULL,&rects[i]);
     }
     SDL_RenderPresent(data->renderer);
+    for (unsigned char i=1; i < 4; i++) SDL_DestroyTexture(textures[i]);
     SDL_Event *event = malloc(sizeof(SDL_Event));
     while (1) {
         SDL_PollEvent(event);
