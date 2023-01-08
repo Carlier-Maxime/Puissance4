@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <unistd.h>
 #include "playerAIBase.h"
 #include "error.h"
 
@@ -161,9 +162,11 @@ short PlayerAIBase_choiceColumn(View *view, unsigned char tokenValue, unsigned c
     short column=0;
     unsigned char *enemyWinTable = getWinTable(view->grid,(tokenValue)==1 ? 2 : 1);
     for (short i = 0; i < GRID_WIDTH; i++) {
+        view->fakeChoiceColumn(view);
         l[i] = weightColumn(view->grid,i,tokenValue,depth,enemyWinTable);
         if (l[i]>l[column]) column=i;
     }
     free(enemyWinTable);
+    sleep(1);
     return column;
 }

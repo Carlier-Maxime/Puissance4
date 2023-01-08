@@ -8,6 +8,7 @@
  */
 
 #include <stdlib.h>
+#include <unistd.h>
 #include "PlayerAIEasy.h"
 #include "PlayerAIBase.h"
 #include "error.h"
@@ -44,6 +45,7 @@ static short choiceColumn(View *view, const unsigned char tokenValue) {
         val = (rand()%(6+1));
     }
     g->removeTopToken(g,val);
+    sleep(1);
     return (short) val;
 }
 
